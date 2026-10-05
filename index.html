@@ -129,7 +129,7 @@ dialog::backdrop{background:#000c}
 .modal-image{display:block;max-height:calc(100vh - 110px);max-width:100%;margin:auto}
 @media(max-width:840px){.toolbar{align-items:start;flex-direction:column}.sheet-wrap{overflow-x:auto}.sheet{margin-left:auto;margin-right:auto}}
 @page{size:A4;margin:0}
-@media print{:root{background:white}body{margin:0}.toolbar,.page-label,dialog{display:none!important}.sheet-wrap{padding:0;overflow:visible}.sheet{margin:0;box-shadow:none;break-after:page;page-break-after:always}.sheet-wrap:last-child .sheet{break-after:auto;page-break-after:auto}.card{cursor:default}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+@media print{:root{background:white}body{margin:0}.toolbar,.page-label,dialog{display:none!important}.sheet-wrap{padding:0;overflow:visible}.sheet{margin:0;gap:0;box-shadow:none;break-after:page;page-break-after:always}.sheet-wrap:last-child .sheet{break-after:auto;page-break-after:auto}.card{cursor:default}.card:not(:nth-child(3n)){border-right:1px solid #fff}.card:nth-child(-n+6){border-bottom:1px solid #fff}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 </style>
 </head>
 <body>
