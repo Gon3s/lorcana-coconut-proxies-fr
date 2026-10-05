@@ -17,7 +17,7 @@ concurrency:
 jobs:
   deploy:
     if: github.ref == 'refs/heads/main' && github.repository == 'Gon3s/lorcana-coconut-proxies-fr'
-    runs-on: [self-hosted, Linux, X64, coconut-pages]
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
