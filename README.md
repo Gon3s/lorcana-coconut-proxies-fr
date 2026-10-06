@@ -11,3 +11,7 @@ Ouvrez la [page des cartes](index.html), puis utilisez **Imprimer les planches**
 Ce projet est une traduction non officielle destinée à des proxies. Les illustrations d'origine et leur filigrane bêta restent la propriété de leurs ayants droit. Ce projet n'est pas affilié à Disney ni à Ravensburger.
 
 La police Barlow Condensed est distribuée sous licence SIL Open Font License. Son texte de licence est inclus dans le fichier HTML.
+
+## Refonte prévue
+
+La [spécification du pipeline CSV et de la génération automatique](docs/SPEC.md) décrit la prochaine version du projet. Elle est proposée pour revue ; le générateur et les nouvelles actions ne sont pas encore implémentés.
