@@ -1,0 +1,27 @@
+@font-face{font-family:Barlow;src:url(BarlowCondensed-Regular.ttf)}
+@font-face{font-family:Barlow;src:url(BarlowCondensed-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Barlow;src:url(BarlowCondensed-Bold.ttf);font-weight:700}
+:root{font-family:Barlow,Arial,sans-serif;color:#f4f4f2;background:#22272b}
+*{box-sizing:border-box}
+body{margin:0}
+header{max-width:1080px;margin:auto;padding:28px 20px 16px;display:flex;align-items:end;justify-content:space-between;gap:20px}
+h1{font-size:clamp(30px,4vw,48px);line-height:1.02;margin:0 0 9px}
+header p{margin:0;color:#c9cdd1;font-size:17px}
+.eyebrow{text-transform:uppercase;letter-spacing:.14em;color:#f4ba42;margin-bottom:10px;font-size:14px}
+button{font:inherit}
+.print{border:0;background:#f0b32c;color:#191919;padding:12px 17px;border-radius:4px;font-weight:700;cursor:pointer;white-space:nowrap}
+.print:hover{background:#ffd064}
+button:focus-visible{outline:3px solid #72c9ff;outline-offset:3px}
+.sheet-wrap{padding:14px 20px 28px}
+.sheet{width:210mm;height:297mm;margin:auto;display:grid;grid-template-columns:repeat(3,63mm);grid-template-rows:repeat(3,88mm);gap:1px;justify-content:center;align-content:center;background:#fff;box-shadow:0 14px 40px #0008;overflow:hidden}
+.card{width:63mm;height:88mm;padding:0;border:0;background:transparent;cursor:zoom-in;display:block}
+.card img{display:block;width:100%;height:100%;object-fit:fill}
+.page-label{text-align:center;margin:8px 0 0;color:#c9cdd1}
+dialog{border:0;border-radius:8px;padding:12px;background:#171b1f;color:white;max-width:calc(100vw - 28px);max-height:calc(100vh - 28px);box-shadow:0 22px 80px #000c}
+dialog::backdrop{background:#000c}
+.modal-head{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:9px}
+#close{color:white;background:none;border:1px solid #aaa;border-radius:4px;padding:4px 10px;cursor:pointer}
+#zoom-image{display:block;max-height:calc(100vh - 105px);max-width:100%;margin:auto}
+@media(max-width:840px){header{display:block}.print{margin-top:18px}.sheet-wrap{overflow-x:auto}}
+@page{size:A4;margin:0}
+@media print{:root{background:white}header,.page-label,dialog{display:none!important}.sheet-wrap{padding:0;overflow:visible}.sheet{margin:0;box-shadow:none;break-after:page;page-break-after:always}.sheet-wrap:last-child .sheet{break-after:auto;page-break-after:auto}.card{cursor:default}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}}

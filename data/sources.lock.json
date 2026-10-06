@@ -1,0 +1,338 @@
+{
+  "schema": 1,
+  "cards": {
+    "coconut-002": {
+      "detail": "assets/source/coconut-002-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-002-art_fr_hd.jpg"
+    },
+    "coconut-017": {
+      "detail": "assets/source/coconut-017-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-017-art_fr_hd.jpg"
+    },
+    "coconut-004": {
+      "detail": "assets/source/coconut-004-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-004-art_fr_hd.jpg"
+    },
+    "coconut-027": {
+      "detail": "assets/source/coconut-027-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-027-art_fr_hd.jpg"
+    },
+    "coconut-019": {
+      "detail": "assets/source/coconut-019-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-019-art_fr_hd.jpg"
+    },
+    "coconut-022": {
+      "detail": "assets/source/coconut-022-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-022-art_fr_hd.jpg"
+    },
+    "coconut-010": {
+      "detail": "assets/source/coconut-010-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-010-art_fr_hd.jpg"
+    },
+    "coconut-026": {
+      "detail": "assets/source/coconut-026-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-026-art_fr_hd.jpg"
+    },
+    "coconut-014": {
+      "detail": "assets/source/coconut-014-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-014-art_fr_hd.jpg"
+    },
+    "coconut-005": {
+      "detail": "assets/source/coconut-005-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-005-art_fr_hd.jpg"
+    },
+    "coconut-012": {
+      "detail": "assets/source/coconut-012-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-012-art_fr_hd.jpg"
+    },
+    "coconut-007": {
+      "detail": "assets/source/coconut-007-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-007-art_fr_hd.jpg"
+    },
+    "coconut-008": {
+      "detail": "assets/source/coconut-008-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-008-art_fr_hd.jpg"
+    },
+    "coconut-025": {
+      "detail": "assets/source/coconut-025-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-025-art_fr_hd.jpg"
+    },
+    "coconut-018": {
+      "detail": "assets/source/coconut-018-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-018-art_fr_hd.jpg"
+    },
+    "coconut-009": {
+      "detail": "assets/source/coconut-009-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-009-art_fr_hd.jpg"
+    },
+    "coconut-003": {
+      "detail": "assets/source/coconut-003-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-003-art_fr_hd.jpg"
+    },
+    "coconut-023": {
+      "detail": "assets/source/coconut-023-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-023-art_fr_hd.jpg"
+    },
+    "coconut-021": {
+      "detail": "assets/source/coconut-021-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-021-art_fr_hd.jpg"
+    },
+    "coconut-006": {
+      "detail": "assets/source/coconut-006-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-006-art_fr_hd.jpg"
+    },
+    "coconut-011": {
+      "detail": "assets/source/coconut-011-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-011-art_fr_hd.jpg"
+    },
+    "coconut-016": {
+      "detail": "assets/source/coconut-016-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-016-art_fr_hd.jpg"
+    },
+    "coconut-020": {
+      "detail": "assets/source/coconut-020-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-020-art_fr_hd.jpg"
+    },
+    "coconut-013": {
+      "detail": "assets/source/coconut-013-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-013-art_fr_hd.jpg"
+    },
+    "coconut-001": {
+      "detail": "assets/source/coconut-001-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-001-art_fr_hd.jpg"
+    },
+    "coconut-024": {
+      "detail": "assets/source/coconut-024-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-024-art_fr_hd.jpg"
+    },
+    "coconut-015": {
+      "detail": "assets/source/coconut-015-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-015-art_fr_hd.jpg"
+    }
+  },
+  "files": {
+    "assets/source/coconut-001-art_fr_hd.jpg": "d39708ebafd2d877fffe1fef304fda3d2088205b96ffc08e93370556e8f4c990",
+    "assets/source/coconut-001-detail.jpg": "6028d4b8222f47b4d682d2e5fe68abba35aef20cd8f98199db48406a4f053336",
+    "assets/source/coconut-002-art_fr_hd.jpg": "7032d558f3a54c47ca2b807bebb1e7be5426410d41d19a8ceffea7c7114254cd",
+    "assets/source/coconut-002-detail.jpg": "b7dd9cf0c1a111692b3dd88b985ca6ecc1d2eea3f4157836a39efdd32445add0",
+    "assets/source/coconut-003-art_fr_hd.jpg": "b53d15a68ce8880e077f7db7256cfaef07a8e0c18770b6ca1a799e2160b0a471",
+    "assets/source/coconut-003-detail.jpg": "c7abac225e2a693b4f498ef39555bdaa35bc3ce97d69573111d9f84079de0e66",
+    "assets/source/coconut-004-art_fr_hd.jpg": "37a9d4126dda5e13105fbbaa66d3f93ec9f64e1cd262582d41d2025420759126",
+    "assets/source/coconut-004-detail.jpg": "9b079f714e839a50e3316c1f4090a8e7ce8bb1d8860392faec3a9b8e2c4bcb09",
+    "assets/source/coconut-005-art_fr_hd.jpg": "9810e886903ec81dae389bd0be04cae185e40045a073c9a417c9616cd111ce80",
+    "assets/source/coconut-005-detail.jpg": "f0a84c4c432f0d5637803699a604271e9d7cb537646623ab0cb746ca6d59f05e",
+    "assets/source/coconut-006-art_fr_hd.jpg": "67b0d2660d54c9d7aca43759a431ea32fc2cbbbd5263032d4cf290b53aae6a74",
+    "assets/source/coconut-006-detail.jpg": "dcbfe9b8c900891f8e1d065b5259fee72c3c658104e13510068fe4e51bb677d0",
+    "assets/source/coconut-007-art_fr_hd.jpg": "c5151025d1f16dd19fbe460f8f1c7977f48b61de81f2e7d75c0cbfd27805f32a",
+    "assets/source/coconut-007-detail.jpg": "be1f5ad6c7339e4c8817e1d64fc8a38e30cbd8f687ccb0e662a5098a3e95f057",
+    "assets/source/coconut-008-art_fr_hd.jpg": "858ee799f37a5a2a4adeceb611e4e1973c31f1618c34c8999516de3dd8413ee6",
+    "assets/source/coconut-008-detail.jpg": "977550ab34fe057bbb231f512c2c10612e6b19242a7c91e232bbdb9e6bc1e738",
+    "assets/source/coconut-009-art_fr_hd.jpg": "bbc05ad609135ee38f9a274f63795dc35b61814f6df2c4a26e423d31e64ac3f5",
+    "assets/source/coconut-009-detail.jpg": "0ddb568b0b8c0f5d35c77cf92f30aafd8b1014f34e144b5708c262041d7b50e3",
+    "assets/source/coconut-010-art_fr_hd.jpg": "ed904dd74f27cec15b95c3cf2a02bc071474e83e8b2bfccf9742c2a7abd5293a",
+    "assets/source/coconut-010-detail.jpg": "8319bfa9d93c9aa0ebe7ba0c787ecda25abf4244426d219e049e293a9e3fe846",
+    "assets/source/coconut-011-art_fr_hd.jpg": "741eb44fd9554240b3c51433e471ff2018bbbf90b0cc898385930a688c5bbcdd",
+    "assets/source/coconut-011-detail.jpg": "a2029075021c06542128e4d6fa8bfdfce8ef0c7fe2490c12635094dc053d0fc5",
+    "assets/source/coconut-012-art_fr_hd.jpg": "784dd2c4ec0fa5a3ac7ac3d9c55fe9c8d1a70b22d78bb23cbedb42eeb1a45ae5",
+    "assets/source/coconut-012-detail.jpg": "a58a44db0166f952ecd543e8e7c46c8976df63f1f4ce7028e35c055936be8d1f",
+    "assets/source/coconut-013-art_fr_hd.jpg": "7fe78efabab465020363602da6b82aacc516a88cb3bf2e2e33cc614d56e1b797",
+    "assets/source/coconut-013-detail.jpg": "16323a919e244f29310d4962c2599de9cfa23dae8e7dcfaafe7e79c76818ef6b",
+    "assets/source/coconut-014-art_fr_hd.jpg": "a9a20392de57d480c486ad3f02010aec9824a5c8f67e473f6ae94ad36fd0df56",
+    "assets/source/coconut-014-detail.jpg": "065e5770e4a918adecbbfbbfe315085e7b6ef9199069664435cbb7fd856cbeb4",
+    "assets/source/coconut-015-art_fr_hd.jpg": "47ce0c37913258d941cf3cd57cc60fac5152bb172ea3f70436158cc900b0703d",
+    "assets/source/coconut-015-detail.jpg": "b2b67230fd2281fcfe5d1dfcd5497f319ca0be67e0ae191f4caff49584ed9191",
+    "assets/source/coconut-016-art_fr_hd.jpg": "49dcb8feb2a63ef27e12b313c465e56d8bfdcc502aff6057601a0c267de01a27",
+    "assets/source/coconut-016-detail.jpg": "396d4d8ebc35f62e2bf62a3132480dd13682a275f0d3783d8a20b0dcc3770259",
+    "assets/source/coconut-017-art_fr_hd.jpg": "55d82811da9caffe699b0abcfa0fa62cb193b1434fa8ee7f3998a5c8460e8234",
+    "assets/source/coconut-017-detail.jpg": "d7f8f048b5beab9df70e34eba364cb05ea727f8ecfe0e2a5390a811c6b8f62cb",
+    "assets/source/coconut-018-art_fr_hd.jpg": "11aa72ef6a9b18a3900e23c1c2139c0d365f278014653de245f944f7ddf2e9a3",
+    "assets/source/coconut-018-detail.jpg": "2ce3de5d8fece38200be1d5aba1e4a0b3c5403a8e0095ddc2d19f3aaa524751c",
+    "assets/source/coconut-019-art_fr_hd.jpg": "e9c1b1b9d1b01524074adbed7c378859764dbe36676e8ae1e2433bb0d6386842",
+    "assets/source/coconut-019-detail.jpg": "3e73e600efde45e35f97f45d381b73f967df267845a5438691429eb5ec5c2987",
+    "assets/source/coconut-020-art_fr_hd.jpg": "4c46a229f70f4cf9a8e09b011727da56a2d4c8385606a18e7f6dd94bcaa4da6f",
+    "assets/source/coconut-020-detail.jpg": "cdbc5eb3206b0f8da14317d97487fd6cf0c39ba05cc17089653930c9731916e3",
+    "assets/source/coconut-021-art_fr_hd.jpg": "860931e38511e7f50b5b3d5731ee1845b9de070c3f165ab80f51d8c43d0cd990",
+    "assets/source/coconut-021-detail.jpg": "9b9faf3409eba61d96badcbd16bdbb8c3cb3d329f9b0fbd60832c8afe23f9d7e",
+    "assets/source/coconut-022-art_fr_hd.jpg": "48de970ef271b43e979db9a091302e3698eac949f137a85db8a74019e36bbbf0",
+    "assets/source/coconut-022-detail.jpg": "7f81768112c0f6853910db7ae0f7ed5beaa136082d6ee24b90a83de5b86fbe3e",
+    "assets/source/coconut-023-art_fr_hd.jpg": "0b6d11d9512cc54bdcd1f08ca0e66cbc25c94525d69656e4c24af3d30c1d8116",
+    "assets/source/coconut-023-detail.jpg": "f6313f27c6aea20430e456439702bcd4a3e62e659904e82717aff05f2d906e09",
+    "assets/source/coconut-024-art_fr_hd.jpg": "17d6efa7e44238cbf996eff538b13d4d06c6f13d931ea2639e183a72ad904082",
+    "assets/source/coconut-024-detail.jpg": "ba08f34a63c7a5bfd745401662b7d6ca33b6f616d117b07a4f6b951b9b878235",
+    "assets/source/coconut-025-art_fr_hd.jpg": "0958095d6cf246ece2128ae791ffa66d358ecad5e42b0906663827bdee125183",
+    "assets/source/coconut-025-detail.jpg": "e87f50fe7af1480677ca9ead4585cbaa9308cfe5d5feabf7025a2f13db53d037",
+    "assets/source/coconut-026-art_fr_hd.jpg": "f759fdbe1896c81104c51864777cca0d9f49874e2f2bebd4c29ba50f32ba2b1b",
+    "assets/source/coconut-026-detail.jpg": "b04c860a4b1df56e919b074b05e2b87d283ae229530df89a6205cff4f3d778ea",
+    "assets/source/coconut-027-art_fr_hd.jpg": "c65b95800a76cd0e40f60569ea509724ecb322c0ced5cd6419fe70339df6839d",
+    "assets/source/coconut-027-detail.jpg": "7c38d7617fdce66264dbd683c5d7e5c43a98e76ec5a52daf731061ab55e79b01"
+  },
+  "catalog_sha256": {
+    "en": "b04e820bfe3bf7a9c3c6fa28eb67c1d54bc888c8ef797916fad5f95fb8898b66",
+    "fr": "e6cae5d9a3c9f60cd695de308bd9c31adee9734ce7286f6f4b11b0a425dbabdb"
+  },
+  "verified_at": "2026-10-06",
+  "refs": {
+    "coconut-002": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/002_2f4470f51ea534efc29020b3afe8c238ef5c12e1.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/002_cb3979f1ee9aa00c90e0353fc28f97042d346ce3.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set1/2_e6d8730a21a8028ac6903b40f91651391aa52e41.jpg",
+      "official_card_id": "2"
+    },
+    "coconut-017": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/017_3ed8598a5e8ef195e2a0e7feae5b034a73b70d05.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/017_8b2ed1ecbd6db7815cb64da396b1b45d3fe78909.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set11/22_390010a459997409f70418c61400db7a61c1607c.jpg",
+      "official_card_id": "2485"
+    },
+    "coconut-004": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/004_573961cdf4b9a3dbefdd25dfd8a23a612870b0e5.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/004_ae6a313d4b7b3237f84cd1f91838b786248e3ed3.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set9/3_1dca78cee73ef8e356697a7d7fdffdf6e6087ff6.jpg",
+      "official_card_id": "1939"
+    },
+    "coconut-027": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/027_20cc0163de69e799ef6358094ec619016a0f0189.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/027_89b9a72b44f58c447d864b73f7fbfe1f5f8e534f.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set10/32_9691fe819b5766aef73264c3819815a83d8be57b.jpg",
+      "official_card_id": "2221"
+    },
+    "coconut-019": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/019_5f466642423b561495e4cfb7fcb48523d19dbdc6.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/019_0ce4954c109df7ab55b427a80a18f7e9753d7b2d.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set13/28_39f60c92e0382549b6caba9d6706270e667c5e73.jpg",
+      "official_card_id": "2999"
+    },
+    "coconut-022": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/022_7929aa57d77626dda43743a9a144458a0256fdea.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/022_d96d905eb19b5de6f42286120a66755c14e7142d.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set13/30_cac4be408061d1c2f6850ca692d8b11ae5134fd5.jpg",
+      "official_card_id": "3001"
+    },
+    "coconut-010": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/010_2f59dcc3720dbdef0e008e1c51e17d070a298b00.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/010_523bb8d02e642fdf535db503f26b73b04a5f2f95.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set11/93_b5ab43c24a2b8912f6d36abb40e86e2f139183ed.jpg",
+      "official_card_id": "2556"
+    },
+    "coconut-026": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/026_d03ccde60045d7eb7d27704866571e39bed48879.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/026_b237dc0c61917ab9bfbf5c765a826f7e3418bc85.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set2/88_e69b0326bc537df19fcb8073b344c3f98a863f46.jpg",
+      "official_card_id": "304"
+    },
+    "coconut-014": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/014_134c230ea7fe660d5b8635007ad7499db98e5a4a.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/014_1c8f19aae650fad25de30fa78ea927e1fa552665.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set5/88_b5461995268d0852e46899e0517f9f65c68e3711.jpg",
+      "official_card_id": "1044"
+    },
+    "coconut-005": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/005_f49cab196c3b842f59b79ccad5257e285c9f6138.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/005_c3b041c68b6ef96153a01c82f7c51c0bf576abbd.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set3/91_4338ada420d5f0e31740b2338d9520b97b299521.jpg",
+      "official_card_id": "527"
+    },
+    "coconut-012": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/012_42ea0e3a20508fabd4d07133463c3db8ecea482e.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/012_e632b5452c8c931d5f39ac94eb57b38ecb74c3c9.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set11/155_d599bb91e1ca93abf1776f5489fac41f96ff2ac9.jpg",
+      "official_card_id": "2618"
+    },
+    "coconut-007": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/007_fa038890c73ce5770913991a67e62741ee237bdf.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/007_3b2bec4e384c6739a6ed230a7015580454eb40f1.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set5/150_c43431265d1514760bd97ac449fc2da2687b71b9.jpg",
+      "official_card_id": "1106"
+    },
+    "coconut-008": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/008_1a2ae37fa9982c436da2c82b8b93ea56b891c49a.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/008_bf02d5810b141fa7582b0fdee72d390927cb102e.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set2/154_9de952c37f604865513eefef08b73c6016c0587a.jpg",
+      "official_card_id": "370"
+    },
+    "coconut-025": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/025_a4c0f0d5757057b6dfa30d7dc8096c1a424de786.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/025_e54a4bd84f7be0414f3707600d5f78d2e1600141.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set13/165_5f6e7d949343e125ba3a08dd86d9744ee51701e0.jpg",
+      "official_card_id": "3136"
+    },
+    "coconut-018": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/018_fa5b8e53262a8fa4ae90493a086e6fb6a20066a4.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/018_b7d305e04c0ae6a29c3ccc794505d49dd6cb5c51.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set9/45_e773ef7e1bf05eac5bcccd66b26065d4228e289d.jpg",
+      "official_card_id": "1981"
+    },
+    "coconut-009": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/009_654c3a64bff9d8fbfb62a0e08faec835cb97599c.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/009_a1d948ecebcced3e83651a650736f92e2f028ce9.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set12/37_2561385ef1df47ae44d7b2702daf7d2523a68951.jpg",
+      "official_card_id": "2752"
+    },
+    "coconut-003": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/003_4a6a9a38378cec7e568533e5be1635ff4c072b23.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/003_3de93f62cb57e87949b70dd619a148a782fefc64.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set9/41_0cf4ee07ac11aa12775104b907546a2261493191.jpg",
+      "official_card_id": "1977"
+    },
+    "coconut-023": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/023_6878934856e62be6701fab31c56059938928fa47.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/023_d8d88be08139f6b4da170e60b3cbde8cab8bfd8c.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set13/59_3c4d9202a8a2598e596dbd88d1264f0a1f578213.jpg",
+      "official_card_id": "3030"
+    },
+    "coconut-021": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/021_d5cfad2c548612a494c80e1066f2c60a40f35c67.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/021_1a149b57a23a7c318c1901a681560dc6ab706552.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set13/60_2559a19a5f3e30fa8884af6bf6c1ad930de1d5eb.jpg",
+      "official_card_id": "3031"
+    },
+    "coconut-006": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/006_37cdc07ac6a01230af46a60253ad507671bbe744.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/006_26270da8c71d67300668d9368bd486460493dc67.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set1/115_342ee9deb92831dd02a6c672b241044da57d33a4.jpg",
+      "official_card_id": "115"
+    },
+    "coconut-011": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/011_eb68273c38f312b66e54fcd284f4c57ae92dadf8.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/011_6e036683ec63530142a4ef043158411591e1c885.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set12/127_340702819f24f1680484f5ff84aecb60a37a826c.jpg",
+      "official_card_id": "2842"
+    },
+    "coconut-016": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/016_0e661acfa013cb4bf2e25829b4e61b4080f007d0.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/016_3590c03bfca3b3aae9e0cc1e60ba730525636deb.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set9/118_35267db7004a90cb63ed8ecdcf96b8684e893b0f.jpg",
+      "official_card_id": "2054"
+    },
+    "coconut-020": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/020_3898ed751ac9952bbe56c7d1ce6422c2fb5f32b3.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/020_03fd1fe71bc58f112f2c1cf0b607f826a831c868.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set13/132_4aa19515e3f16f43bfc7273ddb6c79edd0c69fd1.jpg",
+      "official_card_id": "3103"
+    },
+    "coconut-013": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/013_bd1af8902b0191ce867e7c2456f7cf5fe7bdc918.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/013_cc7a597ca0e78da304280a77adfa72827c644b33.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set3/176_241f6fe08ed20e97064c9e81c9b4666e68fe7588.jpg",
+      "official_card_id": "612"
+    },
+    "coconut-001": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/001_73e8c08e6c148a5735c0eba38951381cf9902e1c.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/001_03932ee89680c70a125ac0d111271a80b81dc7b6.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set9/175_0605147103b2653f873cb0698bc2c371ed8e210a.jpg",
+      "official_card_id": "2111"
+    },
+    "coconut-024": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/024_e93eb512c55161fdcae2a328a158e25b6ea49daa.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/024_90947d17f07b7fd2acfe8d146f74b676c575f544.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set13/197_45b2d5d651d30ae6073b093d17a8de0615324963.jpg",
+      "official_card_id": "3168"
+    },
+    "coconut-015": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/015_0ec6ff1ceedcd6e0047f039dc2bcb2154fc05c02.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/015_d903bc7c93c197dc95e7d9feb5f21a69278c9b2c.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set9/188_7f7dc5b366956409f963e82e7f34ca98cea1a88c.jpg",
+      "official_card_id": "2124"
+    }
+  }
+}

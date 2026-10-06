@@ -1,6 +1,6 @@
 # Spécification — cartes Coconut en français
 
-**Statut :** spécification à relire avant développement.
+**Statut :** implémentation initiale sur la branche de travail ; revue du CSV et du rendu requise avant fusion.
 
 **Périmètre :** importer les données Coconut, permettre la correction des traductions dans un CSV, générer les cartes imprimables et publier la page GitHub Pages.
 
