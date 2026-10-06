@@ -1,10 +1,10 @@
 # Proxies Coconut en français
 
-Une page HTML autonome contenant 27 cartes du format Coconut de Disney Lorcana. Les noms, sous-titres et illustrations en couleur correspondent aux cartes officielles françaises. Les règles propres au format Coconut sont conservées en français. La page présente trois planches A4 de neuf cartes, au format 63 × 88 mm, séparées de 1 px.
+Une page HTML et 27 images JPEG locales contenant les cartes du format Coconut de Disney Lorcana. Les noms, sous-titres et illustrations en couleur correspondent aux cartes officielles françaises. Les règles propres au format Coconut sont conservées en français. La page présente trois planches A4 de neuf cartes, au format 63 × 88 mm, séparées de 1 px.
 
 ## Utilisation
 
-Ouvrez la [page des cartes](index.html), puis utilisez **Imprimer les planches**. Pour respecter les dimensions, choisissez le papier A4, une échelle de 100 % et aucune marge.
+Ouvrez la [page des cartes](index.html), puis utilisez **Imprimer les planches**. Pour respecter les dimensions, choisissez le papier A4, une échelle de 100 % et aucune marge. Pour une utilisation hors ligne, conservez le dossier `images` à côté de `index.html`.
 
 ## À propos
 
