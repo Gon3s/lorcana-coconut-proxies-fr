@@ -107,10 +107,12 @@ def draw_icon(draw: ImageDraw.ImageDraw, symbol: str, x: float, y: float,
     else:
         points = [(x+s*.50,y+s*.03), (x+s*.90,y+s*.26), (x+s*.90,y+s*.73),
                   (x+s*.50,y+s*.97), (x+s*.10,y+s*.73), (x+s*.10,y+s*.26)]
-        draw.line(points + [points[0]], fill=fill, width=stroke, joint='curve')
-        draw.arc((x+s*.27,y+s*.27,x+s*.73,y+s*.73), 205, 510, fill=fill, width=stroke)
-        draw.polygon([(x+s*.69,y+s*.31), (x+s*.85,y+s*.30),
-                      (x+s*.73,y+s*.47)], fill=fill)
+        bold_stroke = max(4, round(s * .13))
+        draw.line(points + [points[0]], fill=fill, width=bold_stroke, joint='curve')
+        draw.arc((x+s*.28,y+s*.30,x+s*.72,y+s*.74), 55, 325,
+                 fill=fill, width=bold_stroke)
+        draw.polygon([(x+s*.78,y+s*.25), (x+s*.80,y+s*.51),
+                      (x+s*.55,y+s*.35)], fill=fill)
 
 
 def draw_rule_lines(draw: ImageDraw.ImageDraw,

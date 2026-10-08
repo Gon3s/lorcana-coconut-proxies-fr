@@ -34,6 +34,12 @@ class TypographyTests(unittest.TestCase):
             draw_icon(draw, symbol, 8 + index * 58, 8, 48, (0, 0, 0))
             self.assertLess(image.crop((8 + index * 58, 8, 56 + index * 58, 56)).getextrema()[0][0], 255)
 
+    def test_exert_arrow_has_a_clear_tip_inside_its_frame(self):
+        image = Image.new('L', (100, 100), 255)
+        draw_icon(ImageDraw.Draw(image), 'exert', 10, 10, 80, 0)
+        self.assertEqual(image.getpixel((72, 30)), 0)
+        self.assertEqual(image.getpixel((50, 50)), 255)
+
 
 if __name__ == '__main__':
     unittest.main()
