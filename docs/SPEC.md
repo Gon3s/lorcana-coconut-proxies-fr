@@ -44,7 +44,7 @@ Fichier proposé : `data/coconut-cards.csv`, encodé en UTF-8. Une ligne logique
 | `official_card_id` | Identifiant commun de la carte standard associée dans les catalogues EN/FR |
 | `ref_image_art_fr_hd` | URL de la carte standard française en haute résolution dont seule l'illustration est extraite |
 
-Un fichier technique `data/sources.lock.json` enregistre les empreintes des images sources, la version du catalogue importé et la date de vérification. Il n'est pas destiné à la traduction. Les symboles non textuels d'un effet EN sont transcrits avec des marqueurs documentés, par exemple `{ink}` ou `{lore}`, puis relus sur l'image source.
+Un fichier technique `data/sources.lock.json` enregistre les empreintes des images sources, la version du catalogue importé et la date de vérification. Il n'est pas destiné à la traduction. Les symboles non textuels d'un effet EN sont transcrits avec des marqueurs documentés, par exemple `{cost}` ou `{lore}`, puis relus sur l'image source. Le symbole de coût est distinct de celui de l'encre.
 
 ## 4. Import initial et mises à jour futures
 

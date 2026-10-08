@@ -19,6 +19,8 @@ class TypographyTests(unittest.TestCase):
     def test_unknown_symbol_is_rejected(self):
         with self.assertRaisesRegex(ValueError, 'Unknown rules symbol'):
             parse_word('{unknown}')
+        with self.assertRaisesRegex(ValueError, 'Unknown rules symbol'):
+            parse_word('{ink}')
 
     def test_layout_respects_mixed_style_width_and_paragraphs(self):
         draw = ImageDraw.Draw(Image.new('RGB', (300, 200), 'white'))
@@ -30,15 +32,21 @@ class TypographyTests(unittest.TestCase):
     def test_all_symbols_render_without_a_font_glyph(self):
         image = Image.new('RGB', (240, 70), 'white')
         draw = ImageDraw.Draw(image)
-        for index, symbol in enumerate(('ink', 'lore', 'strength', 'exert')):
+        for index, symbol in enumerate(('cost', 'lore', 'strength', 'exert')):
             draw_icon(draw, symbol, 8 + index * 58, 8, 48, (0, 0, 0))
             self.assertLess(image.crop((8 + index * 58, 8, 56 + index * 58, 56)).getextrema()[0][0], 255)
 
-    def test_exert_arrow_has_a_clear_tip_inside_its_frame(self):
+    def test_supplied_exert_arrow_keeps_its_tip_and_open_center(self):
         image = Image.new('L', (100, 100), 255)
         draw_icon(ImageDraw.Draw(image), 'exert', 10, 10, 80, 0)
-        self.assertEqual(image.getpixel((72, 30)), 0)
+        self.assertLess(image.getpixel((72, 30)), 128)
         self.assertEqual(image.getpixel((50, 50)), 255)
+
+    def test_supplied_icons_do_not_cover_the_card_with_a_white_box(self):
+        for symbol in ('lore', 'strength', 'exert'):
+            image = Image.new('RGB', (80, 80), (230, 230, 230))
+            draw_icon(ImageDraw.Draw(image), symbol, 10, 10, 60, (0, 0, 0))
+            self.assertEqual(image.getpixel((12, 12)), (230, 230, 230), symbol)
 
 
 if __name__ == '__main__':

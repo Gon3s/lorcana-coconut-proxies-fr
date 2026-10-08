@@ -2,7 +2,7 @@
 
 Les retours français reçus le 6 octobre 2026 sont intégrés au CSV. Les sous-titres cités (Ariel, Stitch, Madrigal, Robin, Ursula, Nick, Dumbo, Blanche-Neige, Winnie, Mickey, Sisu et autres) y figuraient déjà ; ils sont également repris automatiquement dans la ligne « Jusqu'à 4 exemplaires ». Les corrections de ciblage, de zones et de terminologie ont été appliquées à l'effet Coconut, sans copier l'effet de la carte standard.
 
-Le rendu dessine maintenant les pictogrammes `{ink}`, `{lore}`, `{strength}` et `{exert}` et met les mots clés explicitement marqués en gras. Ces pictogrammes sont des approximations vectorielles lisibles des symboles Lorcana, pas des copies exactes de la typographie officielle.
+Le rendu utilise les trois images fournies pour `{lore}`, `{strength}` et `{exert}` et dessine encore `{cost}` comme un hexagone creux. L'hexagone de coût est distinct de la spirale d'encre visible sur la planche de référence. Les mots clés explicitement marqués sont en gras.
 
 ## À confirmer sur le nouvel aperçu avant fusion
 

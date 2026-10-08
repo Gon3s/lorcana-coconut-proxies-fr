@@ -26,9 +26,13 @@ class ReviewedCopyTests(unittest.TestCase):
 
     def test_all_source_symbols_are_present_in_the_french_rules(self):
         for card in self.cards.values():
-            english = set(re.findall(r'\{(ink|lore|strength|exert)\}', card['effet_en']))
-            french = set(re.findall(r'\{(ink|lore|strength|exert)\}', card['effet_fr']))
+            english = set(re.findall(r'\{(cost|lore|strength|exert)\}', card['effet_en']))
+            french = set(re.findall(r'\{(cost|lore|strength|exert)\}', card['effet_fr']))
             self.assertTrue(english <= french, card['id'])
+
+    def test_paid_abilities_use_cost_not_ink_symbol(self):
+        for card in self.cards.values():
+            self.assertNotIn('{ink}', card['effet_en'] + card['effet_fr'])
 
 
 if __name__ == '__main__':

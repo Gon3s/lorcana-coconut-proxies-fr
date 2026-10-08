@@ -1,18 +1,21 @@
 """Inline rules typography shared by every generated card.
 
-CSV markup is deliberately small: **keyword** and {ink}/{lore}/{strength}/{exert}.
+CSV markup is deliberately small: **keyword** and {cost}/{lore}/{strength}/{exert}.
 The symbols are drawn as vectors so the build does not depend on OS glyphs.
 """
 
 import re
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 
-from PIL import ImageDraw, ImageFont
+from PIL import Image, ImageChops, ImageDraw, ImageFont, ImageOps
 
 
-SYMBOLS = frozenset(('ink', 'lore', 'strength', 'exert'))
+SYMBOLS = frozenset(('cost', 'lore', 'strength', 'exert'))
 MARKUP = re.compile(r'\*\*([^*]+)\*\*|\{([a-z]+)\}')
+ICON_DIR = Path(__file__).parents[1] / 'assets' / 'icons'
+SUPPLIED_ICONS = frozenset(('lore', 'strength', 'exert'))
 
 
 @dataclass(frozen=True)
@@ -56,6 +59,19 @@ def _span_width(draw: ImageDraw.ImageDraw, span: Span,
     return size * 0.92 if span.kind == 'icon' else draw.textlength(span.text, font=faces[span.kind])
 
 
+@lru_cache(maxsize=len(SUPPLIED_ICONS))
+def _supplied_icon_mask(symbol: str) -> Image.Image:
+    """Extract the dark mark from a supplied PNG, ignoring its white background."""
+    with Image.open(ICON_DIR / f'{symbol}.png') as source:
+        opacity = source.getchannel('A') if 'A' in source.getbands() else Image.new('L', source.size, 255)
+        darkness = ImageOps.invert(source.convert('RGB').convert('L'))
+        mask = ImageChops.multiply(opacity, darkness)
+    bounds = mask.getbbox()
+    if bounds is None:
+        raise ValueError(f'Empty rules icon: {symbol}')
+    return mask.crop(bounds)
+
+
 def layout_rules(draw: ImageDraw.ImageDraw, text: str, fonts: Path,
                  size: int, width: int) -> list[tuple[list[tuple[Span, ...]], float]]:
     """Wrap mixed-weight text and symbols without dropping explicit paragraphs."""
@@ -82,37 +98,24 @@ def layout_rules(draw: ImageDraw.ImageDraw, text: str, fonts: Path,
 
 def draw_icon(draw: ImageDraw.ImageDraw, symbol: str, x: float, y: float,
               size: int, fill: tuple[int, int, int]) -> None:
-    """Draw readable approximations of the four Lorcana rules symbols."""
+    """Render supplied pictograms, with a vector placeholder for cost."""
     if symbol not in SYMBOLS:
         raise ValueError(f'Unknown rules symbol: {symbol}')
     x, y = int(round(x)), int(round(y))
     s = size
+    if symbol in SUPPLIED_ICONS:
+        mask = _supplied_icon_mask(symbol)
+        target_height = round(s * .92)
+        target_width = min(s, round(mask.width * target_height / mask.height))
+        resized = mask.resize((target_width, target_height), Image.Resampling.LANCZOS)
+        draw.bitmap((x + (s-target_width)//2, y + (s-target_height)//2), resized, fill=fill)
+        return
     stroke = max(3, round(s * .095))
-    if symbol == 'ink':
+    if symbol == 'cost':
         points = [(x + s*.50, y + s*.06), (x + s*.91, y + s*.28),
                   (x + s*.91, y + s*.73), (x + s*.50, y + s*.95),
                   (x + s*.09, y + s*.73), (x + s*.09, y + s*.28)]
         draw.line(points + [points[0]], fill=fill, width=stroke, joint='curve')
-    elif symbol == 'lore':
-        points = [(x + s*.50, y + s*.03), (x + s*.88, y + s*.50),
-                  (x + s*.50, y + s*.97), (x + s*.12, y + s*.50)]
-        draw.line(points + [points[0]], fill=fill, width=stroke, joint='curve')
-        draw.polygon([(x + s*.50, y + s*.27), (x + s*.70, y + s*.53),
-                      (x + s*.50, y + s*.72)], fill=fill)
-    elif symbol == 'strength':
-        draw.ellipse((x+s*.24, y+s*.24, x+s*.76, y+s*.76), outline=fill, width=stroke)
-        for dx, dy in ((0,-1), (1,-1), (1,0), (1,1), (0,1), (-1,1), (-1,0), (-1,-1)):
-            draw.line((x+s*(.5+.28*dx), y+s*(.5+.28*dy),
-                       x+s*(.5+.44*dx), y+s*(.5+.44*dy)), fill=fill, width=stroke)
-    else:
-        points = [(x+s*.50,y+s*.03), (x+s*.90,y+s*.26), (x+s*.90,y+s*.73),
-                  (x+s*.50,y+s*.97), (x+s*.10,y+s*.73), (x+s*.10,y+s*.26)]
-        bold_stroke = max(4, round(s * .13))
-        draw.line(points + [points[0]], fill=fill, width=bold_stroke, joint='curve')
-        draw.arc((x+s*.28,y+s*.30,x+s*.72,y+s*.74), 55, 325,
-                 fill=fill, width=bold_stroke)
-        draw.polygon([(x+s*.78,y+s*.25), (x+s*.80,y+s*.51),
-                      (x+s*.55,y+s*.35)], fill=fill)
 
 
 def draw_rule_lines(draw: ImageDraw.ImageDraw,
