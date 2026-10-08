@@ -9,6 +9,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from .catalog import read_cards
 from .sources import verify_lock
+from .typography import draw_rule_lines, layout_rules
 
 
 CARD_SIZE = (1468, 2048)
@@ -76,7 +77,12 @@ def _black_cost_silhouette(source: Image.Image) -> set[tuple[int, int]]:
             continue
         seen.add((x, y))
         queue.extend(((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)))
-    return seen if len(seen) >= 12000 else set()
+    if len(seen) < 12000:
+        return set()
+    # The black emblem touches the source card's black border. Flood fill alone
+    # would preserve a rectangular patch over the new full-color illustration.
+    return {(x, y) for x, y in seen
+            if ((x - 105) / 185) ** 2 + ((y - 105) / 185) ** 2 <= 1}
 
 
 def compose_card(row: dict[str, str], detail_path: Path, art_path: Path,
@@ -117,9 +123,8 @@ def compose_card(row: dict[str, str], detail_path: Path, art_path: Path,
     note = f"(Jusqu'à 4 exemplaires de « {deck_name} » dans votre deck.)"
     for body_size in range(54, 35, -1):
         note_face = _face(fonts, "Italic", min(45, body_size - 4))
-        body_face = _face(fonts, "Regular", body_size)
         note_lines = _wrap(draw, note, note_face, 1290)
-        body_lines = _wrap(draw, row["effet_fr"], body_face, 1290)
+        body_lines = layout_rules(draw, row["effet_fr"], fonts, body_size, 1290)
         if len(note_lines) > 2:
             continue
         note_step, body_step = 50, int(body_size * 1.18)
@@ -130,8 +135,7 @@ def compose_card(row: dict[str, str], detail_path: Path, art_path: Path,
         raise ValueError(f"{row['id']}: French rules overflow the card")
     for index, line in enumerate(note_lines):
         draw.text((82, 1415 + index * note_step), line, font=note_face, fill=(28, 28, 28))
-    for index, line in enumerate(body_lines):
-        draw.text((82, body_y + index * body_step), line, font=body_face, fill=(14, 14, 14))
+    draw_rule_lines(draw, body_lines, 82, body_y, fonts, body_size, body_step, (14, 14, 14))
     return output
 
 

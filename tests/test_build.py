@@ -4,7 +4,7 @@ from pathlib import Path
 
 from PIL import Image
 
-from coconut.build import compose_card, render_html, validate_rows
+from coconut.build import _black_cost_silhouette, compose_card, render_html, validate_rows
 from coconut.catalog import CSV_COLUMNS
 
 
@@ -18,6 +18,12 @@ def card(**overrides):
 
 
 class BuildTests(unittest.TestCase):
+    def test_black_cost_mask_does_not_paint_a_rectangle_over_colored_art(self):
+        source = Image.new('RGB', (1468, 2048), 'black')
+        mask = _black_cost_silhouette(source)
+        self.assertIn((110, 120), mask)
+        self.assertFalse((300, 300) in mask)
+
     def test_missing_french_text_blocks_build(self):
         with self.assertRaisesRegex(ValueError, 'coconut-001.*effet_fr'):
             validate_rows([card(effet_fr='')])

@@ -28,7 +28,7 @@ Le CSV est la seule source éditable des textes. Les colonnes `ref_image_detail`
 
 `settings_thumbnail_url` sert de référence de cadrage : son image carrée de 256 px ne sert pas à l'impression. La composition extrait l'illustration du JPEG français haute résolution, conserve le cadre et les crédits Coconut, puis repeint entièrement le titre et les règles. Le texte trop long ou une référence manquante arrête la construction.
 
-Dans `effet_en`, `{ink}`, `{lore}`, `{strength}` et `{exert}` transcrivent les symboles imprimés. La ligne « Jusqu'à 4 exemplaires » est produite automatiquement avec le titre et le sous-titre FR ; elle ne figure donc pas dans les champs `effet_*`.
+Dans `effet_en`, `{ink}`, `{lore}`, `{strength}` et `{exert}` transcrivent les symboles imprimés. Les mêmes marqueurs dans `effet_fr` dessinent des pictogrammes lors du build ; ils ne dépendent pas de la présence de glyphes dans la police. Entourer un mot clé de `**` pour le mettre en gras, par exemple `**Boost**`. Garder la ponctuation hors des astérisques. Un marqueur inconnu fait échouer le build. La ligne « Jusqu'à 4 exemplaires » est produite automatiquement avec le titre et le sous-titre FR ; elle ne figure donc pas dans les champs `effet_*`.
 
 ## Vérifier une mise à jour du catalogue
 
@@ -38,4 +38,4 @@ python -m coconut import --fetch --report import-report.json
 
 L'import compare les catalogues EN/FR et les images détaillées à leurs empreintes verrouillées. Il ajoute de nouvelles cartes avec les champs FR vides, conserve toutes les lignes et traductions existantes, et écrit un rapport des changements EN, des illustrations, des noms officiels FR et des cartes disparues. Il ne remplace pas automatiquement un texte déjà relu. Pour travailler avec des fichiers JSON déjà téléchargés : `python -m coconut import --en catalog-en.json --fr catalog-fr.json --report import-report.json`. Ajouter `--check-images` pour comparer aussi les JPEG distants.
 
-Le processus complet pour une nouvelle carte ou une révision de source figure dans [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md). La [spécification](docs/SPEC.md) explique les choix et critères d'acceptation. La [liste de revue initiale](docs/REVIEW.md) indique ce qui doit encore être validé par une personne avant fusion.
+Le processus complet pour une nouvelle carte ou une révision de source figure dans [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md). La [spécification](docs/SPEC.md) explique les choix et critères d'acceptation. Le [suivi de relecture](docs/REVIEW.md) indique les corrections reçues et les points restants avant fusion.
