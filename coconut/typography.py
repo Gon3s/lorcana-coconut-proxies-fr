@@ -1,21 +1,20 @@
 """Inline rules typography shared by every generated card.
 
-CSV markup is deliberately small: **keyword** and {cost}/{lore}/{strength}/{exert}.
+CSV markup is deliberately small: **keyword** and named rules symbols.
 The symbols are drawn as vectors so the build does not depend on OS glyphs.
 """
 
 import re
 from dataclasses import dataclass
-from functools import lru_cache
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw, ImageFont, ImageOps
+from PIL import ImageDraw, ImageFont
+
+from .icons import ICONS, icon_mask
 
 
-SYMBOLS = frozenset(('cost', 'lore', 'strength', 'exert'))
+SYMBOLS = ICONS
 MARKUP = re.compile(r'\*\*([^*]+)\*\*|\{([a-z]+)\}')
-ICON_DIR = Path(__file__).parents[1] / 'assets' / 'icons'
-SUPPLIED_ICONS = frozenset(('lore', 'strength', 'exert'))
 
 
 @dataclass(frozen=True)
@@ -59,18 +58,6 @@ def _span_width(draw: ImageDraw.ImageDraw, span: Span,
     return size * 0.92 if span.kind == 'icon' else draw.textlength(span.text, font=faces[span.kind])
 
 
-@lru_cache(maxsize=len(SUPPLIED_ICONS))
-def _supplied_icon_mask(symbol: str) -> Image.Image:
-    """Extract the dark mark from a supplied PNG, ignoring its white background."""
-    with Image.open(ICON_DIR / f'{symbol}.png') as source:
-        opacity = source.getchannel('A') if 'A' in source.getbands() else Image.new('L', source.size, 255)
-        darkness = ImageOps.invert(source.convert('RGB').convert('L'))
-        mask = ImageChops.multiply(opacity, darkness)
-    bounds = mask.getbbox()
-    if bounds is None:
-        raise ValueError(f'Empty rules icon: {symbol}')
-    return mask.crop(bounds)
-
 
 def layout_rules(draw: ImageDraw.ImageDraw, text: str, fonts: Path,
                  size: int, width: int) -> list[tuple[list[tuple[Span, ...]], float]]:
@@ -98,24 +85,9 @@ def layout_rules(draw: ImageDraw.ImageDraw, text: str, fonts: Path,
 
 def draw_icon(draw: ImageDraw.ImageDraw, symbol: str, x: float, y: float,
               size: int, fill: tuple[int, int, int]) -> None:
-    """Render supplied pictograms, with a vector placeholder for cost."""
-    if symbol not in SYMBOLS:
-        raise ValueError(f'Unknown rules symbol: {symbol}')
+    """Draw an antialiased vector icon onto the card rules area."""
     x, y = int(round(x)), int(round(y))
-    s = size
-    if symbol in SUPPLIED_ICONS:
-        mask = _supplied_icon_mask(symbol)
-        target_height = round(s * .92)
-        target_width = min(s, round(mask.width * target_height / mask.height))
-        resized = mask.resize((target_width, target_height), Image.Resampling.LANCZOS)
-        draw.bitmap((x + (s-target_width)//2, y + (s-target_height)//2), resized, fill=fill)
-        return
-    stroke = max(3, round(s * .095))
-    if symbol == 'cost':
-        points = [(x + s*.50, y + s*.06), (x + s*.91, y + s*.28),
-                  (x + s*.91, y + s*.73), (x + s*.50, y + s*.95),
-                  (x + s*.09, y + s*.73), (x + s*.09, y + s*.28)]
-        draw.line(points + [points[0]], fill=fill, width=stroke, joint='curve')
+    draw.bitmap((x, y), icon_mask(symbol, size), fill=fill)
 
 
 def draw_rule_lines(draw: ImageDraw.ImageDraw,
