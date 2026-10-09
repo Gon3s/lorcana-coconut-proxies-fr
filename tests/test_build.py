@@ -54,10 +54,35 @@ class BuildTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'overflow'):
                 compose_card(card(effet_fr='texte ' * 1500), root / 'detail.jpg', root / 'art.jpg', fonts)
 
+    def test_english_card_uses_english_title_and_rules(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name in ('detail.jpg', 'art.jpg'):
+                Image.new('RGB', (1468, 2048), '#888888').save(root / name)
+            fonts = Path(__file__).parents[1] / 'assets' / 'fonts'
+            row = card(name_en='Ariel', subtitle_en='Spectacular Singer',
+                       effet_en='Gain 2 {lore}.')
+            french = compose_card(row, root / 'detail.jpg', root / 'art.jpg', fonts)
+            english = compose_card(row, root / 'detail.jpg', root / 'art.jpg', fonts, 'en')
+            self.assertNotEqual(french.crop((80, 1200, 1000, 1290)).tobytes(),
+                                english.crop((80, 1200, 1000, 1290)).tobytes())
+            self.assertNotEqual(french.crop((80, 1400, 1300, 1650)).tobytes(),
+                                english.crop((80, 1400, 1300, 1650)).tobytes())
+
+    def test_missing_english_text_blocks_build(self):
+        with self.assertRaisesRegex(ValueError, 'coconut-001.*effet_en'):
+            validate_rows([card(effet_en='')])
+
     def test_html_contains_every_card_and_no_base64(self):
         html = render_html([card(), card(id='coconut-002', name_fr='Stitch')])
         self.assertIn('images/coconut-001.jpg', html)
         self.assertIn('images/coconut-002.jpg', html)
+        self.assertIn('data-name-en=', html)
+        self.assertIn('href="?lang=en"', html)
+        self.assertIn('href="?lang=fr"', html)
+        self.assertIn('id="pdf-link"', html)
+        script = (Path(__file__).parents[1] / 'web' / 'site.js').read_text(encoding='utf-8')
+        self.assertIn('planches-a4-en.pdf', script)
         self.assertNotIn('base64,', html)
         css = (Path(__file__).parents[1] / 'web' / 'style.css').read_text(encoding='utf-8')
         self.assertIn('gap:1px', css)

@@ -9,6 +9,13 @@ h1{font-size:clamp(30px,4vw,48px);line-height:1.02;margin:0 0 9px}
 header p{margin:0;color:#c9cdd1;font-size:17px}
 .eyebrow{text-transform:uppercase;letter-spacing:.14em;color:#f4ba42;margin-bottom:10px;font-size:14px}
 button{font:inherit}
+.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.languages{display:flex;border:1px solid #7d858b;border-radius:4px;overflow:hidden}
+.languages a{color:#f4f4f2;text-decoration:none;padding:10px 13px;font-weight:700}
+.languages a[aria-current="page"]{background:#f0b32c;color:#191919}
+.languages a:focus-visible,.pdf:focus-visible{outline:3px solid #72c9ff;outline-offset:3px}
+.pdf{color:#f4f4f2;text-decoration:none;border:1px solid #7d858b;padding:10px 13px;border-radius:4px;font-weight:600;white-space:nowrap}
+.pdf:hover{background:#3d464b}
 .print{border:0;background:#f0b32c;color:#191919;padding:12px 17px;border-radius:4px;font-weight:700;cursor:pointer;white-space:nowrap}
 .print:hover{background:#ffd064}
 button:focus-visible{outline:3px solid #72c9ff;outline-offset:3px}
@@ -22,6 +29,6 @@ dialog::backdrop{background:#000c}
 .modal-head{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:9px}
 #close{color:white;background:none;border:1px solid #aaa;border-radius:4px;padding:4px 10px;cursor:pointer}
 #zoom-image{display:block;max-height:calc(100vh - 105px);max-width:100%;margin:auto}
-@media(max-width:840px){header{display:block}.print{margin-top:18px}.sheet-wrap{overflow-x:auto}}
+@media(max-width:840px){header{display:block}.header-actions{justify-content:flex-start;margin-top:18px}.sheet-wrap{overflow-x:auto}}
 @page{size:A4;margin:0}
 @media print{:root{background:white}header,.page-label,dialog{display:none!important}.sheet-wrap{padding:0;overflow:visible}.sheet{margin:0;box-shadow:none;break-after:page;page-break-after:always}.sheet-wrap:last-child .sheet{break-after:auto;page-break-after:auto}.card{cursor:default}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
