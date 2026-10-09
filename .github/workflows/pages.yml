@@ -1,41 +1,61 @@
-name: Deploy Coconut proxies to GitHub Pages
+name: Build Coconut cards and deploy Pages
 
 on:
+  pull_request:
   push:
     branches: [main]
   workflow_dispatch:
     inputs:
       runner:
-        description: Runner to use for this deployment
+        description: Runner used to build the cards
         type: choice
         options: [github, local]
         default: github
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
-  group: coconut-pages
+  group: coconut-pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    if: github.ref == 'refs/heads/main' && github.repository == 'Gon3s/lorcana-coconut-proxies-fr'
+  build:
+    if: github.repository == 'Gon3s/lorcana-coconut-proxies-fr'
+    # Pull requests always use GitHub's runner. A local runner is opt-in for manual runs.
     runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'local' && fromJSON('["self-hosted","Linux","X64","coconut-pages"]') || 'ubuntu-latest' }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - run: python -m coconut build --out dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coconut-preview
+          path: dist/
+          if-no-files-found: error
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && github.repository == 'Gon3s/lorcana-coconut-proxies-fr'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: coconut-preview
+          path: dist
       - uses: actions/configure-pages@v5
-      - name: Prepare site
-        run: |
-          mkdir -p public
-          cp index.html public/index.html
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: public
+          path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
