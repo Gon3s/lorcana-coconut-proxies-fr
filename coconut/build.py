@@ -86,7 +86,9 @@ def _black_cost_silhouette(source: Image.Image) -> set[tuple[int, int]]:
 
 
 def compose_card(row: dict[str, str], detail_path: Path, art_path: Path,
-                 fonts: Path) -> Image.Image:
+                 fonts: Path, language: str = "fr") -> Image.Image:
+    if language not in ("fr", "en"):
+        raise ValueError(f"Unsupported language: {language}")
     with Image.open(detail_path) as image:
         source = image.convert("RGB")
     with Image.open(art_path) as image:
@@ -107,24 +109,26 @@ def compose_card(row: dict[str, str], detail_path: Path, art_path: Path,
     draw.rectangle((62, 1105, 1408, 1291), fill=right)
     if max(abs(a - b) for a, b in zip(left, right)) > 25:
         draw.polygon(((62, 1105), (730, 1105), (510, 1291), (62, 1291)), fill=left)
-    title = row["name_fr"].upper()
+    title = row[f"name_{language}"].upper()
     draw.text((82, 1112), title,
               font=_fit(draw, title, fonts, "Bold", 1250, 88, 48), fill="white")
-    if row["subtitle_fr"]:
-        subtitle = row["subtitle_fr"]
+    if row[f"subtitle_{language}"]:
+        subtitle = row[f"subtitle_{language}"]
         draw.text((83, 1207), subtitle,
                   font=_fit(draw, subtitle, fonts, "SemiBold", 1260, 52, 37), fill="white")
 
     # Repaint the entire rules field, so a former EN line can never show through.
     draw.rectangle((62, 1370, 1408, 1903), fill=(235, 235, 234))
-    deck_name = row["name_fr"]
-    if row["subtitle_fr"]:
-        deck_name += " – " + row["subtitle_fr"]
-    note = f"(Jusqu'à 4 exemplaires de « {deck_name} » dans votre deck.)"
+    deck_name = row[f"name_{language}"]
+    if row[f"subtitle_{language}"]:
+        deck_name += (" – " if language == "fr" else " - ") + row[f"subtitle_{language}"]
+    note = (f"(Jusqu'à 4 exemplaires de « {deck_name} » dans votre deck.)"
+            if language == "fr" else
+            f"(You can have up to 4 copies of {deck_name} in your deck.)")
     for body_size in range(54, 35, -1):
         note_face = _face(fonts, "Italic", min(45, body_size - 4))
         note_lines = _wrap(draw, note, note_face, 1290)
-        body_lines = layout_rules(draw, row["effet_fr"], fonts, body_size, 1290)
+        body_lines = layout_rules(draw, row[f"effet_{language}"], fonts, body_size, 1290)
         if len(note_lines) > 2:
             continue
         note_step, body_step = 50, int(body_size * 1.18)
@@ -132,7 +136,7 @@ def compose_card(row: dict[str, str], detail_path: Path, art_path: Path,
         if body_y + len(body_lines) * body_step <= 1890:
             break
     else:
-        raise ValueError(f"{row['id']}: French rules overflow the card")
+        raise ValueError(f"{row['id']}: {language.upper()} rules overflow the card")
     for index, line in enumerate(note_lines):
         draw.text((82, 1415 + index * note_step), line, font=note_face, fill=(28, 28, 28))
     draw_rule_lines(draw, body_lines, 82, body_y, fonts, body_size, body_step, (14, 14, 14))
@@ -144,17 +148,22 @@ def render_html(rows: list[dict[str, str]]) -> str:
     parts = [f'''<!doctype html><html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cartes Coconut en français</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div><p class="eyebrow">Disney Lorcana · Format Coconut</p><h1>Cartes Coconut en français</h1>
-<p>{len(rows)} cartes · {pages} planches A4 · 63 × 88 mm · traductions non officielles</p></div>
-<button type="button" class="print" onclick="window.print()">Imprimer les planches</button></header>
+<header><div><p class="eyebrow">Disney Lorcana · Format Coconut</p><h1 id="page-title">Cartes Coconut en français</h1>
+<p id="page-summary">{len(rows)} cartes · {pages} planches A4 · 63 × 88 mm · traductions non officielles</p></div>
+<div class="header-actions"><nav class="languages" aria-label="Langue / Language"><a id="lang-fr" href="?lang=fr" aria-current="page">FR</a><a id="lang-en" href="?lang=en">EN</a></nav>
+<a id="pdf-link" class="pdf" href="planches-a4.pdf">Télécharger le PDF</a>
+<button type="button" id="print" class="print" onclick="window.print()">Imprimer les planches</button></div></header>
 <main aria-label="Planches Coconut">''']
     for page in range(pages):
         parts.append(f'<div class="sheet-wrap"><section class="sheet" aria-label="Planche {page+1} sur {pages}">')
         for row in rows[page * 9:(page + 1) * 9]:
-            label = row["name_fr"] + (" — " + row["subtitle_fr"] if row["subtitle_fr"] else "")
-            escaped = html.escape(label, quote=True)
+            labels = {language: row[f"name_{language}"] +
+                      (" — " + row[f"subtitle_{language}"] if row[f"subtitle_{language}"] else "")
+                      for language in ("fr", "en")}
+            escaped = html.escape(labels["fr"], quote=True)
+            english = html.escape(labels["en"], quote=True)
             path = f'images/{row["id"]}.jpg'
-            parts.append(f'<button type="button" class="card" data-name="{escaped}" aria-label="Agrandir {escaped}"><img loading="lazy" src="{path}" alt="{escaped}"></button>')
+            parts.append(f'<button type="button" class="card" data-id="{row["id"]}" data-name-fr="{escaped}" data-name-en="{english}" aria-label="Agrandir {escaped}"><img loading="lazy" src="{path}" alt="{escaped}"></button>')
         parts.append(f'</section><p class="page-label">Planche {page+1} / {pages}</p></div>')
     parts.append('''</main><dialog id="zoom" aria-label="Carte agrandie"><div class="modal-head"><strong id="zoom-title"></strong><button type="button" id="close">Fermer</button></div><img id="zoom-image" alt=""></dialog>
 <script src="site.js"></script></body></html>''')
@@ -198,17 +207,21 @@ def build_site(root: Path, destination: Path) -> None:
     destination.mkdir(parents=True, exist_ok=True)
     images_dir = destination / "images"
     images_dir.mkdir(exist_ok=True)
-    rendered = []
     fonts = root / "assets" / "fonts"
-    for row in rows:
-        sources = lock["cards"][row["id"]]
-        card = compose_card(row, root / sources["detail"], root / sources["art_fr_hd"], fonts)
-        card.save(images_dir / f'{row["id"]}.jpg', quality=90, subsampling=0, optimize=True)
-        rendered.append(card)
+    for language in ("fr", "en"):
+        rendered = []
+        language_images = images_dir if language == "fr" else images_dir / "en"
+        language_images.mkdir(exist_ok=True)
+        for row in rows:
+            sources = lock["cards"][row["id"]]
+            card = compose_card(row, root / sources["detail"], root / sources["art_fr_hd"], fonts, language)
+            card.save(language_images / f'{row["id"]}.jpg', quality=90, subsampling=0, optimize=True)
+            rendered.append(card)
+        pdf_name = "planches-a4.pdf" if language == "fr" else "planches-a4-en.pdf"
+        _preview_pdf(rendered, destination / pdf_name)
     (destination / "index.html").write_text(render_html(rows), encoding="utf-8")
     for name in ("style.css", "site.js"):
         (destination / name).write_bytes((root / "web" / name).read_bytes())
     for font in ("Regular", "SemiBold", "Bold"):
         (destination / f"BarlowCondensed-{font}.ttf").write_bytes((fonts / f"BarlowCondensed-{font}.ttf").read_bytes())
     (destination / "OFL.txt").write_bytes((fonts / "OFL.txt").read_bytes())
-    _preview_pdf(rendered, destination / "planches-a4.pdf")

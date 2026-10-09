@@ -1,14 +1,15 @@
-# Spécification — cartes Coconut en français
+# Spécification — cartes Coconut en français et en anglais
 
-**Statut :** implémentation initiale sur la branche de travail ; revue du CSV et du rendu requise avant fusion.
+**Statut :** version française publiée ; extension bilingue en cours de revue.
 
 **Périmètre :** importer les données Coconut, permettre la correction des traductions dans un CSV, générer les cartes imprimables et publier la page GitHub Pages.
 
 ## 1. Résultat attendu
 
 - Une carte par entrée Coconut, avec l'illustration française en couleur, le titre et le sous-titre français, et **l'effet Coconut** traduit en français. Les effets d'une carte Lorcana standard ne remplacent jamais l'effet Coconut.
+- La même carte en anglais, avec le titre, le sous-titre et l'effet Coconut relus depuis la source EN. `?lang=en` affiche les cartes anglaises ; `?lang=fr` et l'URL sans paramètre affichent les cartes françaises. Les boutons de langue mettent à jour l'URL.
 - Des JPEG de 1468 × 2048 px, une page HTML avec zoom, et des planches A4 de neuf cartes au format 63 × 88 mm. L'espace visible entre cartes reste de 1 px, y compris à l'impression.
-- La ligne autorisant jusqu'à quatre exemplaires est produite automatiquement à partir du titre et du sous-titre français.
+- La ligne autorisant jusqu'à quatre exemplaires est produite automatiquement à partir du titre et du sous-titre de la langue choisie.
 - La mention « PROXY FR » n'apparaît pas sur les cartes. Le cartouche `[FORMAT COCONUT]`, les icônes d'encre et les crédits de l'image source sont conservés. Le filigrane « FOR BETA TEST ONLY » situé sur l'illustration grise est remplacé avec celle-ci ; la révision bêta inscrite dans les crédits reste visible.
 - Un changement validé du CSV reconstruit les JPEG et la page, puis publie le site après fusion sur `main`. Une exécution manuelle est également possible.
 
@@ -57,10 +58,10 @@ L'import et la reconstruction sont deux opérations distinctes. Modifier le CSV 
 
 ## 5. Génération
 
-- Un générateur versionné dans le dépôt lit le CSV et les images sources verrouillées. Il compose l'illustration haute résolution dans le gabarit Coconut, puis dessine les textes FR avec la police Barlow Condensed fournie avec sa licence.
+- Un générateur versionné dans le dépôt lit le CSV et les images sources verrouillées. Il compose l'illustration haute résolution dans le gabarit Coconut, puis dessine les textes FR et EN avec la police Barlow Condensed fournie avec sa licence.
 - `settings_thumbnail_url` sert à vérifier que la bonne scène et le bon cadrage ont été choisis. Ses 256 px ne sont pas agrandis silencieusement pour l'impression. Si aucune illustration haute résolution correcte n'est trouvée, la génération échoue avec une erreur expliquant la carte concernée.
 - Le générateur recrée entièrement les zones de titre et de règles à partir du CSV : aucune ancienne traduction ne doit rester peinte sous la nouvelle. Les textes trop longs déclenchent une erreur de débordement ou une revue explicite, plutôt qu'une réduction illisible.
-- La sortie de construction est un dossier `dist/` contenant `index.html`, `images/` et les autres ressources nécessaires. Les images finales générées ne sont pas modifiées à la main et n'ont pas besoin d'être commitées ; leurs sources, le CSV, le générateur et ses dépendances épinglées le sont.
+- La sortie de construction est un dossier `dist/` contenant `index.html`, les JPEG FR dans `images/`, les JPEG EN dans `images/en/`, `planches-a4.pdf`, `planches-a4-en.pdf` et les autres ressources nécessaires. Les chemins FR existants restent valides. Les images finales générées ne sont pas modifiées à la main et n'ont pas besoin d'être commitées ; leurs sources, le CSV, le générateur et ses dépendances épinglées le sont.
 - Le nombre de planches est calculé selon le nombre de cartes. Pour l'état actuel : 27 cartes, trois planches A4. Une dernière planche partielle reste possible si de nouvelles cartes sont ajoutées.
 
 ## 6. GitHub Actions et runner
@@ -81,6 +82,7 @@ L'action Pages actuelle ne copie que `index.html`. Elle devra être remplacée o
 - `name_fr` et `subtitle_fr` correspondent à la carte standard française choisie, sauf correction explicitement documentée. Chaque `effet_fr` correspond à l'`effet_en` de la révision verrouillée, sans emprunter les règles de la carte standard.
 - Les 27 JPEG actuels montrent une illustration en couleur nette, aucun texte EN résiduel, aucune mention « PROXY FR » et aucun texte coupé. Le zoom affiche exactement la carte imprimée.
 - Les planches imprimées ont trois colonnes de cartes de 63 × 88 mm, neuf cartes par A4 pour l'état actuel, et la séparation de 1 px prévue. Un aperçu PDF est relu avant fusion.
+- La langue de la page, des noms accessibles, du zoom, des JPEG, de l'impression et du PDF est cohérente avec le paramètre d'URL ; une valeur inconnue revient au français.
 - Deux constructions avec les mêmes entrées produisent le même contenu. Tous les liens d'image de la page publiée fonctionnent ; une modification de `effet_fr` dans le CSV change la carte concernée après fusion sur `main`.
 
 ## 8. Documentation à livrer avec l'implémentation

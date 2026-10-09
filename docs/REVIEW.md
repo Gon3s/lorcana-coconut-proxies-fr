@@ -12,4 +12,4 @@ Les six pictogrammes de la planche de référence sont maintenant redessinés en
 - `coconut-007` Mufasa : l'image Coconut verrouillée dit **2** cartes dans la réserve ; le PDF bêta antérieur en dit 3. Le CSV suit l'image verrouillée.
 - `coconut-009` Blanche-Neige : confirmer la condition des sept personnages Sept Nains de noms différents et la portée des zones main/défausse/jeu.
 
-La pull request reste en brouillon jusqu'à validation explicite de cet aperçu révisé.
+La version française a été validée puis publiée. Pour l'extension bilingue, relire les textes EN, une image et le PDF EN ainsi que la bascule `?lang=en` avant fusion.
