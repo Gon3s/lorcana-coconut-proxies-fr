@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "review": {
+    "enabled": true,
+    "allowed_requesters": ["Gon3s"],
+    "base_branches": ["main"],
+    "trigger_label": "ai:review",
+    "trigger_command": "/ai review",
+    "timeout_seconds": 900,
+    "max_diff_bytes": 500000
+  },
+  "development": {
+    "enabled": true,
+    "allowed_requesters": ["Gon3s"],
+    "base_branches": ["main"],
+    "spec_command": "/ai spec",
+    "approval_command": "/ai approve",
+    "implement_command": "/ai implement",
+    "max_cycles": 2
+  }
+}
