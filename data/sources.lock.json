@@ -108,6 +108,10 @@
     "coconut-015": {
       "detail": "assets/source/coconut-015-detail.jpg",
       "art_fr_hd": "assets/source/coconut-015-art_fr_hd.jpg"
+    },
+    "coconut-028": {
+      "detail": "assets/source/coconut-028-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-028-art_fr_hd.jpg"
     }
   },
   "files": {
@@ -164,13 +168,10 @@
     "assets/source/coconut-026-art_fr_hd.jpg": "f759fdbe1896c81104c51864777cca0d9f49874e2f2bebd4c29ba50f32ba2b1b",
     "assets/source/coconut-026-detail.jpg": "b04c860a4b1df56e919b074b05e2b87d283ae229530df89a6205cff4f3d778ea",
     "assets/source/coconut-027-art_fr_hd.jpg": "c65b95800a76cd0e40f60569ea509724ecb322c0ced5cd6419fe70339df6839d",
-    "assets/source/coconut-027-detail.jpg": "7c38d7617fdce66264dbd683c5d7e5c43a98e76ec5a52daf731061ab55e79b01"
+    "assets/source/coconut-027-detail.jpg": "7c38d7617fdce66264dbd683c5d7e5c43a98e76ec5a52daf731061ab55e79b01",
+    "assets/source/coconut-028-art_fr_hd.jpg": "a3c41cb37313b973c175ca1bc957839c97a0e9dba841133821954154cfc2c519",
+    "assets/source/coconut-028-detail.jpg": "59dc47e3d62c8a1c0af990237045460548ed775c73eb04292fc29b711e466ba2"
   },
-  "catalog_sha256": {
-    "en": "b04e820bfe3bf7a9c3c6fa28eb67c1d54bc888c8ef797916fad5f95fb8898b66",
-    "fr": "e6cae5d9a3c9f60cd695de308bd9c31adee9734ce7286f6f4b11b0a425dbabdb"
-  },
-  "verified_at": "2026-10-06",
   "refs": {
     "coconut-002": {
       "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/002_2f4470f51ea534efc29020b3afe8c238ef5c12e1.jpg",
@@ -333,6 +334,17 @@
       "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/015_d903bc7c93c197dc95e7d9feb5f21a69278c9b2c.jpg",
       "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set9/188_7f7dc5b366956409f963e82e7f34ca98cea1a88c.jpg",
       "official_card_id": "2124"
+    },
+    "coconut-028": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/028_e83cfe4372e26f8d55ac6e59d8384b030f124e69.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/028_4eaff971958de9d6bf9b9e82e3fa410e6f458516.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set13/50_32e50ea3289e420f182546bbe19c8aae43d71441.jpg",
+      "official_card_id": "3021"
     }
-  }
+  },
+  "catalog_sha256": {
+    "en": "b04e820bfe3bf7a9c3c6fa28eb67c1d54bc888c8ef797916fad5f95fb8898b66",
+    "fr": "e6cae5d9a3c9f60cd695de308bd9c31adee9734ce7286f6f4b11b0a425dbabdb"
+  },
+  "verified_at": "2026-10-10"
 }
