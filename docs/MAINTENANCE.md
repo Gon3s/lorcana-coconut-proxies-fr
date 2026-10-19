@@ -10,6 +10,12 @@
 
 Le build ne contacte pas l'API. Une modification de `effet_fr` ou `effet_en` affecte seulement le rendu de sa langue lors de la prochaine construction. Deux builds avec les mêmes fichiers donnent les mêmes sorties. `?lang=fr` (ou aucune option) affiche le français ; `?lang=en` affiche l'anglais. Le lien PDF et l'impression suivent cette sélection.
 
+## Vérification automatique du catalogue
+
+Le workflow **Build Coconut cards and deploy Pages** interroge les catalogues EN/FR chaque jour à 05:17 UTC. Dans **Actions → Build Coconut cards and deploy Pages → Run workflow**, choisir `operation: check` pour lancer le contrôle à la demande. Le job `check-catalog` écrit un résumé dans la page du run et dépose le rapport JSON dans l'artefact `coconut-catalog-check`. Il ne modifie ni le CSV, ni les images, ni le site publié. Une erreur de l'API fait échouer le job ; une nouvelle carte est signalée dans le résumé et le rapport sans échec artificiel du job.
+
+En local, lancer `python -m coconut check --fetch --report check-report.json`. Cette commande compare les noms et références de la source, mais ne télécharge pas les JPEG détaillés. Pour vérifier aussi les octets des images, utiliser la procédure d'import ci-dessous. Une nouvelle carte doit toujours suivre la relecture et la synchronisation décrites dans la section suivante avant publication.
+
 ## Nouvelle carte ou révision de source
 
 1. Lancer `python -m coconut import --fetch --report import-report.json`. Examiner `added`, `changed`, `detail_image_changed`, `official_changes` et `missing`.
@@ -22,7 +28,7 @@ Un changement de `name_fr` ou `subtitle_fr` éditorial ne nécessite pas `sync-s
 
 ## GitHub Actions et runner local
 
-Chaque pull request utilise `ubuntu-latest`, lance les tests et le build, puis fournit l'artefact `coconut-preview`. Elle ne publie pas le site. Un push sur `main` reconstruit le site puis déploie l'intégralité de `dist/` sur GitHub Pages. `workflow_dispatch` lance aussi un build manuel ; sur `main`, il déclenche également le déploiement.
+Chaque pull request utilise `ubuntu-latest`, lance les tests et le build, puis fournit l'artefact `coconut-preview`. Elle ne publie pas le site. Un push sur `main` reconstruit le site puis déploie l'intégralité de `dist/` sur GitHub Pages. `workflow_dispatch` avec `operation: build` lance aussi un build manuel ; sur `main`, il déclenche également le déploiement. `operation: check` lance uniquement le contrôle du catalogue.
 
 Pour utiliser la machine `192.168.1.23` lors d'un déclenchement manuel :
 
