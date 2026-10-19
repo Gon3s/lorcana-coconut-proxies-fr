@@ -6,7 +6,7 @@
 - `coconut/sources.py` : téléchargement contrôlé et vérification des SHA-256 des images locales.
 - `coconut/build.py` : composition des JPEG FR et EN, page HTML et deux PDF A4.
 - `data/coconut-cards.csv` : textes et références éditables ; `data/sources.lock.json` : version vérifiée des références et des fichiers.
-- `assets/source/` : 27 images Coconut détaillées et 27 cartes françaises haute résolution ; `assets/fonts/` : Barlow Condensed avec sa licence OFL.
+- `assets/source/` : 29 images Coconut détaillées et 29 cartes françaises haute résolution ; `assets/fonts/` : Barlow Condensed avec sa licence OFL.
 
 Le build ne contacte pas l'API. Une modification de `effet_fr` ou `effet_en` affecte seulement le rendu de sa langue lors de la prochaine construction. Deux builds avec les mêmes fichiers donnent les mêmes sorties. `?lang=fr` (ou aucune option) affiche le français ; `?lang=en` affiche l'anglais. Le lien PDF et l'impression suivent cette sélection.
 

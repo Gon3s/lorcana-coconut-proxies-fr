@@ -1,6 +1,6 @@
 # Cartes Coconut en français et en anglais
 
-Ce dépôt génère les 27 cartes Coconut actuellement publiées par Disney Lorcana avec leurs illustrations en couleur et les **règles Coconut** en français ou en anglais. Les cartes finales font 1468 × 2048 px. Chaque langue dispose de trois planches A4 de neuf cartes (63 × 88 mm, écart visible de 1 px), d'un zoom et d'un PDF.
+Ce dépôt génère 29 cartes Coconut avec leurs illustrations en couleur et les **règles Coconut** en français ou en anglais. Les cartes finales font 1468 × 2048 px. Chaque langue dispose de quatre planches A4 de neuf emplacements (63 × 88 mm, écart visible de 1 px), d'un zoom et d'un PDF ; la dernière planche est partielle.
 
 La page française est l'URL par défaut, ou `?lang=fr`. Ajouter `?lang=en` à l'URL pour afficher les titres, effets, images et planches anglaises. Les boutons **FR** et **EN** font le même changement. Le bouton d'impression et le lien PDF utilisent la langue affichée.
 

@@ -4,7 +4,7 @@ from io import BytesIO
 from pathlib import Path
 from unittest.mock import patch
 
-from coconut.__main__ import _json_source, import_catalog
+from coconut.__main__ import _fetch_bytes, _json_source, import_catalog
 from coconut.catalog import CSV_COLUMNS, read_cards, write_cards
 from coconut.check import format_check_summary
 
@@ -16,6 +16,13 @@ def coconut(number, name, detail_suffix='a'):
 
 
 class ImportTests(unittest.TestCase):
+    def test_image_fetch_sends_jpeg_client_headers(self):
+        with patch('coconut.__main__.urlopen', return_value=BytesIO(b'jpeg')) as opened:
+            self.assertEqual(_fetch_bytes('https://host/card.jpg', 'image/jpeg'), b'jpeg')
+        request = opened.call_args.args[0]
+        self.assertEqual(request.get_header('Accept'), 'image/jpeg')
+        self.assertTrue(request.get_header('User-agent'))
+
     def test_catalog_fetch_sends_json_client_headers(self):
         with patch('coconut.__main__.urlopen', return_value=BytesIO(b'{"coconut_cards": []}')) as opened:
             self.assertEqual(_json_source(None, 'en', True), {'coconut_cards': []})
