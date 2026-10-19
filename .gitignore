@@ -1,5 +1,7 @@
 dist/
 import-report.json
+check-report.json
+check-summary.md
 __pycache__/
 *.pyc
 .venv/

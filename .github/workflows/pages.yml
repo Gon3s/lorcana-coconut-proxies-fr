@@ -4,8 +4,15 @@ on:
   pull_request:
   push:
     branches: [main]
+  schedule:
+    - cron: '17 5 * * *'
   workflow_dispatch:
     inputs:
+      operation:
+        description: Build the site or check for new Coconut cards
+        type: choice
+        options: [build, check]
+        default: build
       runner:
         description: Runner used to build the cards
         type: choice
@@ -17,8 +24,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  check-catalog:
+    if: github.repository == 'Gon3s/lorcana-coconut-proxies-fr' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.operation == 'check'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m coconut check --fetch --report check-report.json --summary "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coconut-catalog-check
+          path: check-report.json
+          if-no-files-found: error
+
   build:
-    if: github.repository == 'Gon3s/lorcana-coconut-proxies-fr'
+    if: github.repository == 'Gon3s/lorcana-coconut-proxies-fr' && github.event_name != 'schedule' && (github.event_name != 'workflow_dispatch' || inputs.operation == 'build')
     # Pull requests always use GitHub's runner. A local runner is opt-in for manual runs.
     runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'local' && fromJSON('["self-hosted","Linux","X64","coconut-pages"]') || 'ubuntu-latest' }}
     permissions:
@@ -43,7 +68,7 @@ jobs:
           if-no-files-found: error
 
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && github.repository == 'Gon3s/lorcana-coconut-proxies-fr'
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.operation == 'build')) && github.repository == 'Gon3s/lorcana-coconut-proxies-fr'
     needs: build
     runs-on: ubuntu-latest
     permissions:

@@ -4,11 +4,10 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 
-from .build import build_site
 from .catalog import SOURCE_COLUMNS, merge_rows, read_cards, source_rows, write_cards
-from .sources import sync_sources
+from .check import format_check_summary
 
 
 CATALOG_URLS = {
@@ -19,7 +18,11 @@ CATALOG_URLS = {
 
 def _json_source(path: str | None, locale: str, fetch: bool) -> dict:
     if fetch:
-        with urlopen(CATALOG_URLS[locale], timeout=30) as response:
+        request = Request(CATALOG_URLS[locale], headers={
+            "User-Agent": "Mozilla/5.0",
+            "Accept": "application/json",
+        })
+        with urlopen(request, timeout=30) as response:
             return json.load(response)
     if not path:
         raise ValueError(f"Provide --{locale} or --fetch")
@@ -51,7 +54,8 @@ def _official_changes(previous: list[dict[str, str]], french: dict) -> dict:
 
 
 def import_catalog(root: Path, english: dict, french: dict,
-                   image_hashes: dict[str, str] | None = None) -> dict:
+                   image_hashes: dict[str, str] | None = None,
+                   persist: bool = True) -> dict:
     csv_path = root / "data" / "coconut-cards.csv"
     previous = read_cards(csv_path) if csv_path.exists() else []
     incoming = source_rows(english, french)
@@ -76,10 +80,11 @@ def import_catalog(root: Path, english: dict, french: dict,
                 image_changes[identifier] = {"url": row["ref_image_detail"],
                                              "pinned_sha256": lock["files"][pinned],
                                              "incoming_sha256": image_hashes[row["ref_image_detail"]]}
-    if merged.added or not csv_path.exists():
+    if persist and (merged.added or not csv_path.exists()):
         write_cards(csv_path, merged.cards)
     official_changes = _official_changes(previous, french) if "cards" in french else {}
     return {"added": merged.added, "changed": changes, "detail_image_changed": image_changes,
+            "detail_images_checked": image_hashes is not None,
             "official_changes": official_changes, "missing": merged.missing,
             "review_required": bool(merged.added or changes or image_changes or official_changes or merged.missing)}
 
@@ -94,6 +99,12 @@ def main() -> None:
     imported.add_argument("--fetch", action="store_true", help="Download both catalogs from Ravensburger")
     imported.add_argument("--check-images", action="store_true", help="Compare remote detailed JPEGs with the pinned hashes")
     imported.add_argument("--report", type=Path, default=Path("import-report.json"))
+    checking = commands.add_parser("check", help="Compare current catalogs without changing the CSV")
+    checking.add_argument("--en", help="Local English catalog JSON")
+    checking.add_argument("--fr", help="Local French catalog JSON")
+    checking.add_argument("--fetch", action="store_true", help="Download both catalogs from Ravensburger")
+    checking.add_argument("--report", type=Path, default=Path("check-report.json"))
+    checking.add_argument("--summary", type=Path, help="Write a Markdown summary")
     building = commands.add_parser("build", help="Build site from pinned local sources")
     building.add_argument("--out", type=Path, default=Path("dist"))
     syncing = commands.add_parser("sync-sources", help="Download and lock images named by the reviewed CSV")
@@ -116,11 +127,24 @@ def main() -> None:
         print(f"Added: {len(report['added'])}, EN changes: {len(report['changed'])}, "
               f"image changes: {len(report['detail_image_changed'])}, "
               f"FR official changes: {len(report['official_changes'])}, missing: {len(report['missing'])}")
+    elif args.command == "check":
+        english = _json_source(args.en, "en", args.fetch)
+        french = _json_source(args.fr, "fr", args.fetch)
+        report = import_catalog(root, english, french, persist=False)
+        args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        summary = format_check_summary(report, english, french)
+        if args.summary:
+            args.summary.write_text(summary, encoding="utf-8")
+        print(summary)
     elif args.command == "build":
+        from .build import build_site
+
         destination = args.out if args.out.is_absolute() else root / args.out
         build_site(root, destination)
         print(f"Built: {destination}")
     elif args.command == "sync-sources":
+        from .sources import sync_sources
+
         rows = read_cards(root / "data" / "coconut-cards.csv")
         def fetch_bytes(url):
             with urlopen(url, timeout=30) as response:

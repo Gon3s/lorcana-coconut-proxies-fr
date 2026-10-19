@@ -35,6 +35,16 @@ Dans `effet_en`, `{cost}`, `{lore}`, `{strength}` et `{exert}` transcrivent les 
 
 ## Vérifier une mise à jour du catalogue
 
+Pour vérifier les nouvelles cartes sans modifier le CSV ni télécharger les images :
+
+```bash
+python -m coconut check --fetch --report check-report.json
+```
+
+Le même contrôle est disponible dans **Actions → Build Coconut cards and deploy Pages → Run workflow** avec `operation: check`, et s'exécute chaque jour à 05:17 UTC. Le résultat apparaît dans le résumé du run et dans l'artefact `coconut-catalog-check`.
+
+Pour importer les nouvelles lignes après examen du rapport et comparer aussi les images détaillées :
+
 ```bash
 python -m coconut import --fetch --report import-report.json
 ```
