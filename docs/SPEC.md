@@ -62,13 +62,13 @@ L'import et la reconstruction sont deux opérations distinctes. Modifier le CSV 
 - `settings_thumbnail_url` sert à vérifier que la bonne scène et le bon cadrage ont été choisis. Ses 256 px ne sont pas agrandis silencieusement pour l'impression. Si aucune illustration haute résolution correcte n'est trouvée, la génération échoue avec une erreur expliquant la carte concernée.
 - Le générateur recrée entièrement les zones de titre et de règles à partir du CSV : aucune ancienne traduction ne doit rester peinte sous la nouvelle. Les textes trop longs déclenchent une erreur de débordement ou une revue explicite, plutôt qu'une réduction illisible.
 - La sortie de construction est un dossier `dist/` contenant `index.html`, les JPEG FR dans `images/`, les JPEG EN dans `images/en/`, `planches-a4.pdf`, `planches-a4-en.pdf` et les autres ressources nécessaires. Les chemins FR existants restent valides. Les images finales générées ne sont pas modifiées à la main et n'ont pas besoin d'être commitées ; leurs sources, le CSV, le générateur et ses dépendances épinglées le sont.
-- Le nombre de planches est calculé selon le nombre de cartes. Pour l'état actuel : 27 cartes, trois planches A4. Une dernière planche partielle reste possible si de nouvelles cartes sont ajoutées.
+- Le nombre de planches est calculé selon le nombre de cartes. Avec 29 cartes, chaque langue produit quatre planches A4, dont une partielle.
 
 ## 6. GitHub Actions et runner
 
 | Événement | Action attendue |
 | --- | --- |
-| Pull request | Valider le CSV et les sources, construire le site, vérifier les dimensions et les débordements, fournir un aperçu téléchargeable des cartes et des trois planches A4. Ne pas publier GitHub Pages. |
+| Pull request | Valider le CSV et les sources, construire le site, vérifier les dimensions et les débordements, fournir un aperçu téléchargeable des cartes et des planches A4 calculées. Ne pas publier GitHub Pages. |
 | Push sur `main` | Refaire la même construction depuis les sources versionnées, publier **tout** `dist/` sur GitHub Pages. Toute correction validée du CSV apparaît ainsi sur le site. |
 | `workflow_dispatch` | Permettre une reconstruction ou un déploiement manuel d'une révision de confiance, sans réimport automatique de l'API. |
 
@@ -80,7 +80,7 @@ L'action Pages actuelle ne copie que `index.html`. Elle devra être remplacée o
 
 - Chaque identifiant est unique ; tous les champs et fichiers requis sont présents. Une source modifiée ou une traduction FR manquante bloque la publication et nomme la carte concernée.
 - `name_fr` et `subtitle_fr` correspondent à la carte standard française choisie, sauf correction explicitement documentée. Chaque `effet_fr` correspond à l'`effet_en` de la révision verrouillée, sans emprunter les règles de la carte standard.
-- Les 27 JPEG actuels montrent une illustration en couleur nette, aucun texte EN résiduel, aucune mention « PROXY FR » et aucun texte coupé. Le zoom affiche exactement la carte imprimée.
+- Les JPEG générés montrent une illustration en couleur nette, aucun texte EN résiduel dans la version FR, aucune mention « PROXY FR » et aucun texte coupé. Le zoom affiche exactement la carte imprimée.
 - Les planches imprimées ont trois colonnes de cartes de 63 × 88 mm, neuf cartes par A4 pour l'état actuel, et la séparation de 1 px prévue. Un aperçu PDF est relu avant fusion.
 - La langue de la page, des noms accessibles, du zoom, des JPEG, de l'impression et du PDF est cohérente avec le paramètre d'URL ; une valeur inconnue revient au français.
 - Deux constructions avec les mêmes entrées produisent le même contenu. Tous les liens d'image de la page publiée fonctionnent ; une modification de `effet_fr` dans le CSV change la carte concernée après fusion sur `main`.

@@ -16,14 +16,15 @@ CATALOG_URLS = {
 }
 
 
+def _fetch_bytes(url: str, accept: str) -> bytes:
+    request = Request(url, headers={"User-Agent": "Mozilla/5.0", "Accept": accept})
+    with urlopen(request, timeout=30) as response:
+        return response.read()
+
+
 def _json_source(path: str | None, locale: str, fetch: bool) -> dict:
     if fetch:
-        request = Request(CATALOG_URLS[locale], headers={
-            "User-Agent": "Mozilla/5.0",
-            "Accept": "application/json",
-        })
-        with urlopen(request, timeout=30) as response:
-            return json.load(response)
+        return json.loads(_fetch_bytes(CATALOG_URLS[locale], "application/json"))
     if not path:
         raise ValueError(f"Provide --{locale} or --fetch")
     return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -119,8 +120,7 @@ def main() -> None:
             image_hashes = {}
             for row in source_rows(english, french):
                 url = row["ref_image_detail"]
-                with urlopen(url, timeout=30) as response:
-                    image_hashes[url] = hashlib.sha256(response.read()).hexdigest()
+                image_hashes[url] = hashlib.sha256(_fetch_bytes(url, "image/jpeg")).hexdigest()
         report = import_catalog(root, english, french, image_hashes)
         args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"Import report: {args.report}")
@@ -147,8 +147,7 @@ def main() -> None:
 
         rows = read_cards(root / "data" / "coconut-cards.csv")
         def fetch_bytes(url):
-            with urlopen(url, timeout=30) as response:
-                return response.read()
+            return _fetch_bytes(url, "image/jpeg")
         lock = sync_sources(root, rows, fetch_bytes, args.accept_changes)
         print(f"Pinned {len(lock['files'])} source images")
 
