@@ -1,12 +1,14 @@
 import tempfile
 import unittest
-from io import BytesIO
+import json
+from contextlib import redirect_stdout
+from io import BytesIO, StringIO
 from pathlib import Path
 from unittest.mock import patch
 
-from coconut.__main__ import _fetch_bytes, _json_source, import_catalog
+from coconut.__main__ import _fetch_bytes, _json_source, import_catalog, main
 from coconut.catalog import CSV_COLUMNS, read_cards, write_cards
-from coconut.check import format_check_summary
+from coconut.check import format_check_summary, review_manifest
 
 
 def coconut(number, name, detail_suffix='a'):
@@ -86,6 +88,39 @@ class ImportTests(unittest.TestCase):
                   'official_changes': {}, 'missing': [], 'review_required': False}
         summary = format_check_summary(report, {'coconut_cards': []}, {'coconut_cards': []})
         self.assertIn('Aucune nouvelle carte Coconut', summary)
+
+    def test_review_manifest_contains_only_unreviewed_source_fields(self):
+        english = {'coconut_cards': [coconut(2, 'Merida')]}
+        french = {'coconut_cards': [coconut(2, 'Merida')]}
+        manifest = review_manifest({'added': ['coconut-002']}, english, french)
+
+        self.assertEqual(manifest['schema'], 1)
+        self.assertEqual(manifest['cards'], [{
+            'id': 'coconut-002',
+            'name_en': 'Merida',
+            'subtitle_en': 'Subtitle',
+            'ref_image_detail': english['coconut_cards'][0]['card_detail_url'],
+            'ref_image_settings': french['coconut_cards'][0]['settings_thumbnail_url'],
+        }])
+        self.assertNotIn('effet_fr', manifest['cards'][0])
+
+    def test_check_command_writes_review_manifest_without_editing_csv(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            english = root / 'en.json'
+            french = root / 'fr.json'
+            english.write_text(json.dumps({'coconut_cards': [coconut(2, 'Merida')]}), encoding='utf-8')
+            french.write_text(json.dumps({'coconut_cards': [coconut(2, 'Merida')]}), encoding='utf-8')
+            manifest = root / 'pending.json'
+            with patch('sys.argv', ['coconut', '--root', str(root), 'check',
+                                    '--en', str(english), '--fr', str(french),
+                                    '--report', str(root / 'report.json'),
+                                    '--review-manifest', str(manifest)]):
+                with redirect_stdout(StringIO()):
+                    main()
+            self.assertEqual(json.loads(manifest.read_text(encoding='utf-8'))['cards'][0]['id'],
+                             'coconut-002')
+            self.assertFalse((root / 'data' / 'coconut-cards.csv').exists())
 
 
 if __name__ == '__main__':

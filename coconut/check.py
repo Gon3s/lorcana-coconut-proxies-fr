@@ -1,6 +1,17 @@
 """Human-readable summary for a read-only Coconut catalogue check."""
 
-from .catalog import source_rows
+from .catalog import SOURCE_COLUMNS, source_rows
+
+
+def review_manifest(report: dict, english: dict, french: dict) -> dict:
+    """Capture source metadata without claiming translations or official matches."""
+    added = set(report["added"])
+    fields = ("id", *SOURCE_COLUMNS)
+    cards = [{field: row[field] for field in fields}
+             for row in source_rows(english, french) if row["id"] in added]
+    if {card["id"] for card in cards} != added:
+        raise ValueError("New card IDs are missing from the catalog")
+    return {"schema": 1, "cards": cards}
 
 
 def format_check_summary(report: dict, english: dict, french: dict) -> str:

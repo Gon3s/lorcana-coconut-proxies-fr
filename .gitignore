@@ -2,6 +2,7 @@ dist/
 import-report.json
 check-report.json
 check-summary.md
+pending-coconuts.json
 __pycache__/
 *.pyc
 .venv/

@@ -21,7 +21,7 @@ Les traductions sont non officielles. Les images et marques appartiennent à leu
    ```
 
 4. Ouvrir `http://localhost:8000/?lang=fr` puis `http://localhost:8000/?lang=en`, agrandir une carte dans chaque langue et contrôler `dist/planches-a4.pdf` et `dist/planches-a4-en.pdf`. À l'impression depuis le navigateur, choisir A4, 100 %, marges nulles et arrière-plans imprimés.
-5. Ouvrir une pull request. L'Action construit et fournit l'artefact **coconut-preview** contenant la page, les 54 JPEG et les deux PDF. Une personne relit le CSV et le rendu avant fusion. Après fusion sur `main`, l'Action publie tout `dist/` sur GitHub Pages.
+5. Ouvrir une pull request. L'Action construit et fournit l'artefact **coconut-preview** contenant la page, les 58 JPEG et les deux PDF. Une personne relit le CSV et le rendu avant fusion. Après fusion sur `main`, l'Action publie tout `dist/` sur GitHub Pages.
 
 Le site publié est [lorcana-coconut-proxies-fr](https://gon3s.github.io/lorcana-coconut-proxies-fr/).
 
@@ -41,7 +41,9 @@ Pour vérifier les nouvelles cartes sans modifier le CSV ni télécharger les im
 python -m coconut check --fetch --report check-report.json
 ```
 
-Le même contrôle est disponible dans **Actions → Build Coconut cards and deploy Pages → Run workflow** avec `operation: check`, et s'exécute chaque jour à 05:17 UTC. Le résultat apparaît dans le résumé du run et dans l'artefact `coconut-catalog-check`.
+Le contrôle s'exécute chaque samedi à partir de 08:17 UTC, puis reconstruit et publie le site avec les cartes déjà validées. Une nouvelle carte ouvre une PR brouillon contenant ses références source ; sa traduction et ses images doivent être relues avant fusion. Dans **Actions → Build Coconut cards and deploy Pages → Run workflow**, `operation: check` contrôle et peut ouvrir cette PR sans reconstruire le site ; `operation: weekly` lance le processus complet à la demande. Le rapport figure dans le résumé du run et dans l'artefact `coconut-catalog-check`.
+
+La création automatique de PR nécessite l'option GitHub **Settings → Actions → General → Workflow permissions → Allow GitHub Actions to create and approve pull requests**. La procédure détaillée figure dans [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md).
 
 Pour importer les nouvelles lignes après examen du rapport et comparer aussi les images détaillées :
 

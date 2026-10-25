@@ -7,7 +7,7 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 from .catalog import SOURCE_COLUMNS, merge_rows, read_cards, source_rows, write_cards
-from .check import format_check_summary
+from .check import format_check_summary, review_manifest
 
 
 CATALOG_URLS = {
@@ -106,6 +106,7 @@ def main() -> None:
     checking.add_argument("--fetch", action="store_true", help="Download both catalogs from Ravensburger")
     checking.add_argument("--report", type=Path, default=Path("check-report.json"))
     checking.add_argument("--summary", type=Path, help="Write a Markdown summary")
+    checking.add_argument("--review-manifest", type=Path, help="Write source metadata for new cards")
     building = commands.add_parser("build", help="Build site from pinned local sources")
     building.add_argument("--out", type=Path, default=Path("dist"))
     syncing = commands.add_parser("sync-sources", help="Download and lock images named by the reviewed CSV")
@@ -132,6 +133,10 @@ def main() -> None:
         french = _json_source(args.fr, "fr", args.fetch)
         report = import_catalog(root, english, french, persist=False)
         args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        if args.review_manifest:
+            manifest = review_manifest(report, english, french)
+            args.review_manifest.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+                                            encoding="utf-8")
         summary = format_check_summary(report, english, french)
         if args.summary:
             args.summary.write_text(summary, encoding="utf-8")
