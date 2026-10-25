@@ -5,13 +5,13 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '17 5 * * *'
+    - cron: '17 8 * * 6'
   workflow_dispatch:
     inputs:
       operation:
-        description: Build the site or check for new Coconut cards
+        description: Build, check, or run the weekly pipeline
         type: choice
-        options: [build, check]
+        options: [build, check, weekly]
         default: build
       runner:
         description: Runner used to build the cards
@@ -25,25 +25,59 @@ concurrency:
 
 jobs:
   check-catalog:
-    if: github.repository == 'Gon3s/lorcana-coconut-proxies-fr' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.operation == 'check'))
+    if: github.repository == 'Gon3s/lorcana-coconut-proxies-fr' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (inputs.operation == 'check' || inputs.operation == 'weekly')))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: read
+    outputs:
+      has_new: ${{ steps.catalog.outputs.has_new }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m coconut check --fetch --report check-report.json --summary "$GITHUB_STEP_SUMMARY"
+      - id: catalog
+        run: |
+          python -m coconut check --fetch --report check-report.json --summary "$GITHUB_STEP_SUMMARY" --review-manifest pending-coconuts.json
+          python -c "import json; print('has_new=' + str(bool(json.load(open('check-report.json', encoding='utf-8'))['added'])).lower())" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v4
         with:
           name: coconut-catalog-check
-          path: check-report.json
+          path: |
+            check-report.json
+            pending-coconuts.json
           if-no-files-found: error
 
+  review-new-cards:
+    if: github.ref == 'refs/heads/main' && needs.check-catalog.outputs.has_new == 'true' && github.repository == 'Gon3s/lorcana-coconut-proxies-fr'
+    needs: check-catalog
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: coconut-catalog-check
+      - run: mkdir -p reviews && cp pending-coconuts.json reviews/pending-coconuts.json
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/review-new-coconuts
+          base: main
+          draft: true
+          commit-message: 'chore: stage new Coconut cards for review'
+          title: 'Review new Coconut cards'
+          body: |
+            The weekly catalog check found new Coconut cards. `reviews/pending-coconuts.json` contains their original EN labels and source URLs.
+
+            Before merging, transcribe each Coconut effect from its detailed image, confirm the matching official FR card and high-resolution art, obtain a reviewed French translation, sync the source images, and inspect both languages and PDFs. Remove the pending manifest when the cards are ready. The site publishes after this PR is merged into main.
+          add-paths: reviews/pending-coconuts.json
+
   build:
-    if: github.repository == 'Gon3s/lorcana-coconut-proxies-fr' && github.event_name != 'schedule' && (github.event_name != 'workflow_dispatch' || inputs.operation == 'build')
+    needs: check-catalog
+    if: always() && github.repository == 'Gon3s/lorcana-coconut-proxies-fr' && (github.event_name == 'pull_request' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.operation == 'build') || ((github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.operation == 'weekly')) && needs.check-catalog.result == 'success'))
     # Pull requests always use GitHub's runner. A local runner is opt-in for manual runs.
     runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner == 'local' && fromJSON('["self-hosted","Linux","X64","coconut-pages"]') || 'ubuntu-latest' }}
     permissions:
@@ -68,7 +102,7 @@ jobs:
           if-no-files-found: error
 
   deploy:
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.operation == 'build')) && github.repository == 'Gon3s/lorcana-coconut-proxies-fr'
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (inputs.operation == 'build' || inputs.operation == 'weekly'))) && github.repository == 'Gon3s/lorcana-coconut-proxies-fr'
     needs: build
     runs-on: ubuntu-latest
     permissions:

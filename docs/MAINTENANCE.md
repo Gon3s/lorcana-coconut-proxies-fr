@@ -12,7 +12,11 @@ Le build ne contacte pas l'API. Une modification de `effet_fr` ou `effet_en` aff
 
 ## Vérification automatique du catalogue
 
-Le workflow **Build Coconut cards and deploy Pages** interroge les catalogues EN/FR chaque jour à 05:17 UTC. Dans **Actions → Build Coconut cards and deploy Pages → Run workflow**, choisir `operation: check` pour lancer le contrôle à la demande. Le job `check-catalog` écrit un résumé dans la page du run et dépose le rapport JSON dans l'artefact `coconut-catalog-check`. Il ne modifie ni le CSV, ni les images, ni le site publié. Une erreur de l'API fait échouer le job ; une nouvelle carte est signalée dans le résumé et le rapport sans échec artificiel du job.
+Le workflow **Build Coconut cards and deploy Pages** interroge les catalogues EN/FR chaque samedi à partir de 08:17 UTC (09:17 en hiver, 10:17 en été à Paris ; GitHub peut retarder le démarrage). Le job `check-catalog` écrit un résumé et dépose le rapport JSON ainsi que `pending-coconuts.json` dans l'artefact `coconut-catalog-check`. Le contrôle reste en lecture seule. Une erreur de l'API arrête le build planifié et le déploiement.
+
+Si une nouvelle carte apparaît, `review-new-cards` ouvre ou actualise une PR brouillon sur la branche `automation/review-new-coconuts`. Le fichier `reviews/pending-coconuts.json` ne contient que l'identifiant, le titre et le sous-titre EN, et les URL source. Il ne préremplit aucune transcription, traduction ou association à une carte officielle. Une personne complète la PR en suivant la procédure ci-dessous et relit les deux langues et les PDF avant fusion. Le push résultant sur `main` publie alors la nouvelle carte. Le build planifié publie seulement les cartes déjà validées et verrouillées dans `main`.
+
+**Prérequis GitHub :** dans **Settings → Actions → General → Workflow permissions**, activer **Allow GitHub Actions to create and approve pull requests**. Sans cette option, le job de création de la PR échoue lorsque de nouvelles cartes sont détectées. Le jeton de `review-new-cards` est limité à `contents: write` et `pull-requests: write` ; les autres jobs gardent leurs permissions propres.
 
 En local, lancer `python -m coconut check --fetch --report check-report.json`. Cette commande compare les noms et références de la source, mais ne télécharge pas les JPEG détaillés. Pour vérifier aussi les octets des images, utiliser la procédure d'import ci-dessous. Une nouvelle carte doit toujours suivre la relecture et la synchronisation décrites dans la section suivante avant publication.
 
@@ -28,7 +32,7 @@ Un changement de `name_fr` ou `subtitle_fr` éditorial ne nécessite pas `sync-s
 
 ## GitHub Actions et runner local
 
-Chaque pull request utilise `ubuntu-latest`, lance les tests et le build, puis fournit l'artefact `coconut-preview`. Elle ne publie pas le site. Un push sur `main` reconstruit le site puis déploie l'intégralité de `dist/` sur GitHub Pages. `workflow_dispatch` avec `operation: build` lance aussi un build manuel ; sur `main`, il déclenche également le déploiement. `operation: check` lance uniquement le contrôle du catalogue.
+Chaque pull request utilise `ubuntu-latest`, lance les tests et le build, puis fournit l'artefact `coconut-preview`. Elle ne publie pas le site. Un push sur `main` reconstruit le site puis déploie l'intégralité de `dist/` sur GitHub Pages. Le samedi, un contrôle réussi précède le build et le déploiement des cartes validées. `workflow_dispatch` avec `operation: build` lance un build manuel ; `operation: check` lance le contrôle et peut ouvrir une PR brouillon sur `main` ; `operation: weekly` lance le contrôle suivi du build et du déploiement sur `main`.
 
 Pour utiliser la machine `192.168.1.23` lors d'un déclenchement manuel :
 
@@ -36,4 +40,4 @@ Pour utiliser la machine `192.168.1.23` lors d'un déclenchement manuel :
 2. Ajouter le label personnalisé `coconut-pages` ; les labels automatiques `self-hosted`, `Linux` et `X64` doivent être présents. Laisser `actions/setup-python` et `actions/setup-node` installer Python 3.12 et Node 20 pour les tests et le build.
 3. Démarrer le runner comme service et vérifier qu'il apparaît **Idle** sur GitHub. Dans **Actions → Build Coconut cards and deploy Pages → Run workflow**, choisir `runner: local`. Cette option n'est pas utilisée par les pull requests.
 
-Le job de déploiement GitHub Pages reste sur un runner GitHub hébergé ; le runner local ne construit que l'artefact. Prévoir assez de disque pour les 54 JPEG sources, les 54 JPEG générés et les deux PDF.
+Le job de déploiement GitHub Pages reste sur un runner GitHub hébergé ; le runner local ne construit que l'artefact. Prévoir assez de disque pour les 58 JPEG sources, les 58 JPEG générés et les deux PDF.
