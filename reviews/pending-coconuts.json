@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "cards": [
+    {
+      "id": "coconut-030",
+      "name_en": "Maui",
+      "subtitle_en": "Half-Shark",
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/030_9d4036353713492ab6ed40ee57735cbab2b443c2.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/030_ebe5299e117101bd9f59e9b069fcae11d32cc095.jpg"
+    }
+  ]
+}
