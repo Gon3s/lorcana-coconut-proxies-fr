@@ -16,6 +16,8 @@ Le workflow **Build Coconut cards and deploy Pages** interroge les catalogues EN
 
 Si une nouvelle carte apparaît, `review-new-cards` ouvre ou actualise une PR brouillon sur la branche `automation/review-new-coconuts`. Le fichier `reviews/pending-coconuts.json` ne contient que l'identifiant, le titre et le sous-titre EN, et les URL source. Il ne préremplit aucune transcription, traduction ou association à une carte officielle. Une personne complète la PR en suivant la procédure ci-dessous et relit les deux langues et les PDF avant fusion. Le push résultant sur `main` publie alors la nouvelle carte. Le build planifié publie seulement les cartes déjà validées et verrouillées dans `main`.
 
+Le manifeste temporaire `/pending-coconuts.json` est ignoré par Git à la racine. Sa copie `reviews/pending-coconuts.json` doit rester suivable pour que l'action puisse ouvrir la PR de revue.
+
 **Prérequis GitHub :** dans **Settings → Actions → General → Workflow permissions**, activer **Allow GitHub Actions to create and approve pull requests**. Sans cette option, le job de création de la PR échoue lorsque de nouvelles cartes sont détectées. Le jeton de `review-new-cards` est limité à `contents: write` et `pull-requests: write` ; les autres jobs gardent leurs permissions propres.
 
 En local, lancer `python -m coconut check --fetch --report check-report.json`. Cette commande compare les noms et références de la source, mais ne télécharge pas les JPEG détaillés. Pour vérifier aussi les octets des images, utiliser la procédure d'import ci-dessous. Une nouvelle carte doit toujours suivre la relecture et la synchronisation décrites dans la section suivante avant publication.
