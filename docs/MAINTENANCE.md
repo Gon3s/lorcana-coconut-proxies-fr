@@ -6,7 +6,7 @@
 - `coconut/sources.py` : téléchargement contrôlé et vérification des SHA-256 des images locales.
 - `coconut/build.py` : composition des JPEG FR et EN, page HTML et deux PDF A4.
 - `data/coconut-cards.csv` : textes et références éditables ; `data/sources.lock.json` : version vérifiée des références et des fichiers.
-- `assets/source/` : 29 images Coconut détaillées et 29 cartes françaises haute résolution ; `assets/fonts/` : Barlow Condensed avec sa licence OFL.
+- `assets/source/` : 30 images Coconut détaillées et 30 cartes françaises haute résolution ; `assets/fonts/` : Barlow Condensed avec sa licence OFL.
 
 Le build ne contacte pas l'API. Une modification de `effet_fr` ou `effet_en` affecte seulement le rendu de sa langue lors de la prochaine construction. Deux builds avec les mêmes fichiers donnent les mêmes sorties. `?lang=fr` (ou aucune option) affiche le français ; `?lang=en` affiche l'anglais. Le lien PDF et l'impression suivent cette sélection.
 
@@ -44,10 +44,10 @@ Un changement de `name_fr` ou `subtitle_fr` éditorial ne nécessite pas `sync-s
 
 Chaque pull request utilise `ubuntu-latest`, lance les tests et le build, puis fournit l'artefact `coconut-preview`. Elle ne publie pas le site. Un push sur `main` reconstruit le site puis déploie l'intégralité de `dist/` sur GitHub Pages. Le samedi, un contrôle réussi précède le build et le déploiement des cartes validées. `workflow_dispatch` avec `operation: build` lance un build manuel ; `operation: check` lance le contrôle et peut ouvrir une PR brouillon sur `main` ; `operation: weekly` lance le contrôle suivi du build et du déploiement sur `main`.
 
-Pour utiliser la machine `192.168.1.23` lors d'un déclenchement manuel :
+Pour utiliser le mini serveur personnel lors d'un déclenchement manuel :
 
-1. Dans **Settings → Actions → Runners** du dépôt GitHub, créer un runner **Linux x64** pour ce dépôt. Suivre les commandes affichées par GitHub sur `192.168.1.23` avec un compte non privilégié. Le jeton d'enregistrement est temporaire et ne doit pas être enregistré dans ce dépôt.
+1. Dans **Settings → Actions → Runners** du dépôt GitHub, créer un runner **Linux x64** pour ce dépôt. Suivre les commandes affichées par GitHub sur le serveur personnel avec un compte non privilégié. Le jeton d'enregistrement est temporaire et ne doit pas être enregistré dans ce dépôt.
 2. Ajouter le label personnalisé `coconut-pages` ; les labels automatiques `self-hosted`, `Linux` et `X64` doivent être présents. Laisser `actions/setup-python` et `actions/setup-node` installer Python 3.12 et Node 20 pour les tests et le build.
 3. Démarrer le runner comme service et vérifier qu'il apparaît **Idle** sur GitHub. Dans **Actions → Build Coconut cards and deploy Pages → Run workflow**, choisir `runner: local`. Cette option n'est pas utilisée par les pull requests.
 
-Le job de déploiement GitHub Pages reste sur un runner GitHub hébergé ; le runner local ne construit que l'artefact. Prévoir assez de disque pour les 58 JPEG sources, les 58 JPEG générés et les deux PDF.
+Le job de déploiement GitHub Pages reste sur un runner GitHub hébergé ; le runner local ne construit que l'artefact. Prévoir assez de disque pour les 60 JPEG sources, les 60 JPEG générés et les deux PDF.

@@ -1,6 +1,6 @@
 # Cartes Coconut en français et en anglais
 
-Ce dépôt génère 29 cartes Coconut avec leurs illustrations en couleur et les **règles Coconut** en français ou en anglais. Les cartes finales font 1468 × 2048 px. Chaque langue dispose de quatre planches A4 de neuf emplacements (63 × 88 mm, écart visible de 1 px), d'un zoom et d'un PDF ; la dernière planche est partielle.
+Ce dépôt génère 30 cartes Coconut avec leurs illustrations en couleur et les **règles Coconut** en français ou en anglais. Les cartes finales font 1468 × 2048 px. Chaque langue dispose de quatre planches A4 de neuf emplacements (63 × 88 mm, écart visible de 1 px), d'un zoom et d'un PDF ; la dernière planche est partielle.
 
 La page française est l'URL par défaut, ou `?lang=fr`. Ajouter `?lang=en` à l'URL pour afficher les titres, effets, images et planches anglaises. Les boutons **FR** et **EN** font le même changement. Le bouton d'impression et le lien PDF utilisent la langue affichée.
 
@@ -21,7 +21,7 @@ Les traductions sont non officielles. Les images et marques appartiennent à leu
    ```
 
 4. Ouvrir `http://localhost:8000/?lang=fr` puis `http://localhost:8000/?lang=en`, agrandir une carte dans chaque langue et contrôler `dist/planches-a4.pdf` et `dist/planches-a4-en.pdf`. À l'impression depuis le navigateur, choisir A4, 100 %, marges nulles et arrière-plans imprimés.
-5. Ouvrir une pull request. L'Action construit et fournit l'artefact **coconut-preview** contenant la page, les 58 JPEG et les deux PDF. Une personne relit le CSV et le rendu avant fusion. Après fusion sur `main`, l'Action publie tout `dist/` sur GitHub Pages.
+5. Ouvrir une pull request. L'Action construit et fournit l'artefact **coconut-preview** contenant la page, les 60 JPEG et les deux PDF. Une personne relit le CSV et le rendu avant fusion. Après fusion sur `main`, l'Action publie tout `dist/` sur GitHub Pages.
 
 Le site publié est [lorcana-coconut-proxies-fr](https://gon3s.github.io/lorcana-coconut-proxies-fr/).
 

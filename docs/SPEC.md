@@ -1,6 +1,6 @@
 # Spécification — cartes Coconut en français et en anglais
 
-**Statut :** version française publiée ; extension bilingue en cours de revue.
+**Statut :** génération bilingue FR/EN opérationnelle ; publication après fusion humaine.
 
 **Périmètre :** importer les données Coconut, permettre la correction des traductions dans un CSV, générer les cartes imprimables et publier la page GitHub Pages.
 
@@ -62,7 +62,7 @@ L'import et la reconstruction sont deux opérations distinctes. Modifier le CSV 
 - `settings_thumbnail_url` sert à vérifier que la bonne scène et le bon cadrage ont été choisis. Ses 256 px ne sont pas agrandis silencieusement pour l'impression. Si aucune illustration haute résolution correcte n'est trouvée, la génération échoue avec une erreur expliquant la carte concernée.
 - Le générateur recrée entièrement les zones de titre et de règles à partir du CSV : aucune ancienne traduction ne doit rester peinte sous la nouvelle. Les textes trop longs déclenchent une erreur de débordement ou une revue explicite, plutôt qu'une réduction illisible.
 - La sortie de construction est un dossier `dist/` contenant `index.html`, les JPEG FR dans `images/`, les JPEG EN dans `images/en/`, `planches-a4.pdf`, `planches-a4-en.pdf` et les autres ressources nécessaires. Les chemins FR existants restent valides. Les images finales générées ne sont pas modifiées à la main et n'ont pas besoin d'être commitées ; leurs sources, le CSV, le générateur et ses dépendances épinglées le sont.
-- Le nombre de planches est calculé selon le nombre de cartes. Avec 29 cartes, chaque langue produit quatre planches A4, dont une partielle.
+- Le nombre de planches est calculé selon le nombre de cartes. Avec 30 cartes, chaque langue produit quatre planches A4, dont une partielle.
 
 ## 6. GitHub Actions et runner
 
@@ -74,7 +74,7 @@ L'import et la reconstruction sont deux opérations distinctes. Modifier le CSV 
 
 La validation des PR utilise un runner GitHub hébergé. Le runner local Linux x64 de `192.168.1.23` peut être proposé pour les constructions ou déploiements manuels et les changements de confiance sur `main`, avec les labels `self-hosted`, `Linux`, `X64`, `coconut-pages`. Il ne reçoit pas les PR publiques non approuvées. Le fonctionnement du générateur et ses dépendances doivent être identiques sur les deux runners.
 
-L'action Pages actuelle ne copie que `index.html`. Elle devra être remplacée ou adaptée pour publier `dist/` en entier, notamment les JPEG dans `images/`.
+L'action Pages publie `dist/` en entier, notamment les JPEG dans `images/`, les ressources de la page et les deux PDF.
 
 ## 7. Critères d'acceptation
 
