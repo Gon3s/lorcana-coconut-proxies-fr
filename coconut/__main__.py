@@ -8,12 +8,7 @@ from urllib.request import Request, urlopen
 
 from .catalog import SOURCE_COLUMNS, merge_rows, read_cards, source_rows, write_cards
 from .check import format_check_summary, review_manifest
-
-
-CATALOG_URLS = {
-    "en": "https://api.lorcana.ravensburger.com/v3/catalog/en",
-    "fr": "https://api.lorcana.ravensburger.com/v3/catalog/fr",
-}
+from .download import CATALOG_URLS
 
 
 def _fetch_bytes(url: str, accept: str) -> bytes:
@@ -113,9 +108,41 @@ def main() -> None:
     syncing.add_argument("--accept-changes", action="store_true", help="Replace changed pinned images after review")
     reviewing = commands.add_parser("review-check", help="Check a complete proposal before human review (read-only)")
     reviewing.add_argument("proposal", type=Path, help="Path to proposal.json, relative to --root or absolute")
+    preparing = commands.add_parser("prepare-review", help="Capture candidate sources in a resumable draft")
+    preparing.add_argument("identifier", help="Stable Coconut ID, e.g. coconut-030")
+    preparing.add_argument("--fetch", action="store_true", help="Download the official EN/FR catalogs")
+    preparing.add_argument("--en", type=Path, help="Local English catalog JSON, relative to --root or absolute")
+    preparing.add_argument("--fr", type=Path, help="Local French catalog JSON, relative to --root or absolute")
+    preparing.add_argument("--out", type=Path, default=Path("outputs/reviews"), help="Parent folder under repository outputs/")
+    preparing.add_argument("--official-card-id", default="", help="Explicit candidate official match; requires human review")
     args = parser.parse_args()
     root = args.root.resolve()
-    if args.command == "review-check":
+    if args.command == "prepare-review":
+        from .download import IMAGE_LIMIT, download_bytes, load_catalog
+        from .prepare import prepare_review
+
+        try:
+            if args.fetch and (args.en is not None or args.fr is not None):
+                raise ValueError("Choose either --fetch or local catalogs, not both")
+            if not args.fetch and (args.en is None or args.fr is None):
+                raise ValueError("Provide both --en and --fr, or use --fetch")
+            catalogs = {}
+            for language in ("en", "fr"):
+                path = getattr(args, language)
+                if path is not None and not path.is_absolute():
+                    path = root / path
+                catalogs[language] = load_catalog(path, language, args.fetch)
+            proposal_path = prepare_review(
+                root, args.identifier, catalogs["en"], catalogs["fr"], args.out,
+                lambda url: download_bytes(url, "image/jpeg", IMAGE_LIMIT),
+                official_card_id=args.official_card_id,
+                catalog_origins=CATALOG_URLS if args.fetch else None,
+            )
+        except (OSError, ValueError) as error:
+            parser.error(f"Preparation failed: {error}")
+        print(f"Candidate draft captured or unchanged: {proposal_path}")
+        print("No production CSV or source lock changed. Human source review is still required.")
+    elif args.command == "review-check":
         from .review import validate_review
 
         path = args.proposal if args.proposal.is_absolute() else root / args.proposal

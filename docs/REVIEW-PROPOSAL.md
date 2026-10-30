@@ -2,8 +2,9 @@
 
 Le dossier rassemble ce qu'une personne doit relire avant d'intégrer une
 nouvelle carte ou une révision. Il reste séparé du CSV publié et du verrou
-des sources de production. La préparation automatique et l'intégration à la
-CI seront ajoutées dans les prochaines itérations du plan.
+des sources de production. La [capture relançable des sources](PREPARE-REVIEW.md)
+est disponible avec `prepare-review`. Le traitement des textes avec Codex et
+l'intégration à la CI seront ajoutés dans les prochaines itérations du plan.
 
 ## États et commande
 
@@ -14,8 +15,10 @@ CI seront ajoutées dans les prochaines itérations du plan.
 | `ready_for_review` | Le préparateur demande une revue des sources, des textes et des rendus | Réussi uniquement si les contrôles ci-dessous passent |
 | Approbation humaine | Revue de PR et des fichiers par une personne | Aucun champ JSON ne confère cette approbation |
 
-Un futur préparateur pourra écrire un dossier local, par exemple
-`outputs/reviews/coconut-030/proposal.json`. La commande disponible est :
+Le préparateur écrit un brouillon local sous
+`outputs/reviews/coconut-030/proposal.json`. Il peut être incomplet, avec
+seulement deux sources et aucun aperçu. Une fois complété, la commande de
+contrôle de préparation est :
 
 ```bash
 rtk proxy python -m coconut review-check outputs/reviews/coconut-030/proposal.json
@@ -116,6 +119,6 @@ fidélité de l'effet, la traduction, l'illustration et le rendu imprimé.
 
 À ce stade, le workflow GitHub n'appelle pas encore `review-check` : cette
 commande ne protège donc pas encore la fusion d'un manifeste incomplet.
-La protection sera intégrée dans la PR dédiée aux workflows. Aucun dossier
-réel ni traduction de Maui n'est créé par cette itération ; les tests utilisent
-uniquement des données synthétiques.
+La protection sera intégrée dans la PR dédiée aux workflows. Le préparateur
+fournit un brouillon local ; la transcription, la traduction et les aperçus
+restent à réaliser. Les tests ordinaires utilisent des données synthétiques.
