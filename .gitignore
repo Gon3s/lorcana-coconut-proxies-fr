@@ -1,4 +1,5 @@
 dist/
+/outputs/
 import-report.json
 check-report.json
 check-summary.md

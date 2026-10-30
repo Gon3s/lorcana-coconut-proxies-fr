@@ -12,7 +12,9 @@ class ReviewTrackingTests(unittest.TestCase):
             subprocess.run(['git', 'init', '--quiet', directory], check=True)
             (root / '.gitignore').write_bytes(ignore_rules)
             for path, ignored in [('pending-coconuts.json', True),
-                                  ('reviews/pending-coconuts.json', False)]:
+                                  ('reviews/pending-coconuts.json', False),
+                                  ('outputs/reviews/coconut-030/proposal.json', True),
+                                  ('reviews/coconut-030/proposal.json', False)]:
                 with self.subTest(path=path):
                     result = subprocess.run(
                         ['git', '-C', directory, 'check-ignore', '--no-index', '-q', path],

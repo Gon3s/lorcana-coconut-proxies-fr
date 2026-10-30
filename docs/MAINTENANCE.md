@@ -27,7 +27,8 @@ En local, lancer `python -m coconut check --fetch --report check-report.json`. C
 Le [contrat des dossiers de proposition](REVIEW-PROPOSAL.md) et la commande
 en lecture seule `python -m coconut review-check chemin/vers/proposal.json`
 permettent de vérifier un dossier complet avant sa revue humaine. La
-préparation de ces dossiers et le branchement du contrôle dans GitHub Actions
+capture initiale des dossiers est décrite dans le [guide de préparation](PREPARE-REVIEW.md).
+Le traitement avec Codex et le branchement du contrôle dans GitHub Actions
 restent des étapes à venir ; la procédure actuelle ci-dessous reste applicable.
 
 1. Lancer `python -m coconut import --fetch --report import-report.json`. Examiner `added`, `changed`, `detail_image_changed`, `official_changes` et `missing`.

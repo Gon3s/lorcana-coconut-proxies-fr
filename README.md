@@ -57,4 +57,4 @@ Le processus complet pour une nouvelle carte ou une révision de source figure d
 
 La [remise à plat du pipeline](docs/PIPELINE-RESET.md) décrit l'audit du 30 octobre 2026 et le plan d'évolution : détection hebdomadaire, préparation manuelle avec Codex sur le mini serveur, validation par PR et publication après fusion. Ce plan distingue les fonctions existantes des développements à réaliser.
 
-La première itération ajoute le [contrat de proposition et son contrôle en lecture seule](docs/REVIEW-PROPOSAL.md) : `python -m coconut review-check chemin/vers/proposal.json`. Il vérifie qu'un dossier est complet et cohérent pour la revue humaine ; son intégration aux workflows et la préparation des cartes viennent ensuite.
+Pour [capturer les sources dans un brouillon relançable](docs/PREPARE-REVIEW.md), utiliser `python -m coconut prepare-review coconut-030 --fetch`. Le [contrat de proposition et son contrôle en lecture seule](docs/REVIEW-PROPOSAL.md), `python -m coconut review-check chemin/vers/proposal.json`, vérifient ensuite qu'un dossier complété est cohérent pour la revue humaine. Le traitement des textes avec Codex et l'intégration aux workflows viennent ensuite.
