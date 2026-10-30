@@ -131,6 +131,26 @@ def _changes(root: Path, source: dict, baseline: dict | None, sources: dict) -> 
     return {'fields': fields, 'images': images}
 
 
+def verify_capture(root: Path, proposal_path: Path) -> tuple[dict, dict]:
+    """Verify a local capture and its current CSV baseline, without fetching."""
+    root = root.resolve()
+    path = proposal_path if proposal_path.is_absolute() else root / proposal_path
+    if (path.name != 'proposal.json' or path.is_symlink() or path.parent.is_symlink()
+            or not path.resolve().is_relative_to(root / 'outputs')):
+        raise ValueError('Expected a captured proposal.json under repository outputs/')
+    try:
+        receipt = json.loads((path.parent / 'capture.json').read_text(encoding='utf-8'))
+        identifier = receipt['selection']['source_row']['id']
+        current = {row['id']: row for row in read_cards(root / 'data' / 'coconut-cards.csv')}
+        _resume(path.parent, receipt['selection'], current.get(identifier), receipt['sources'])
+        proposal = json.loads(path.read_text(encoding='utf-8'))
+        if any(not isinstance(value, str) for value in proposal['card'].values()):
+            raise ValueError('Captured card fields must be strings')
+    except (KeyError, TypeError, AttributeError) as error:
+        raise ValueError('Invalid captured proposal or receipt') from error
+    return proposal, receipt
+
+
 def prepare_review(root: Path, identifier: str, english: dict, french: dict,
                    output: Path, fetch_image, *, official_card_id: str = '',
                    catalog_origins: dict | None = None) -> Path:

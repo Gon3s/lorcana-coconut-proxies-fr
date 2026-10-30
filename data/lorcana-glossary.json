@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "basis": "Existing reviewed Coconut CSV and explicit user corrections; this is a project glossary, not an official rules document.",
+  "terms": [
+    {"en": "exert", "fr": "épuiser", "reference": "coconut-011; user correction"},
+    {"en": "exerted", "fr": "épuisé", "reference": "coconut-007, coconut-029; user correction"},
+    {"en": "ready", "fr": "redresser", "reference": "coconut-020"},
+    {"en": "quest", "fr": "partir à l'aventure", "reference": "coconut-029"},
+    {"en": "inkwell", "fr": "réserve d'encre", "reference": "coconut-029"},
+    {"en": "top card of your deck", "fr": "carte du dessus de votre pioche", "reference": "coconut-029"},
+    {"en": "facedown and exerted", "fr": "face cachée et épuisée", "reference": "coconut-029"},
+    {"en": "Rush", "fr": "Charge", "reference": "coconut-011"},
+    {"en": "Challenger", "fr": "Combattant", "reference": "coconut-026; user correction"},
+    {"en": "Floodborn", "fr": "Floodborn", "reference": "coconut-024; user correction"},
+    {"en": "Boost", "fr": "Boost", "reference": "user correction: keep keywords bold"},
+    {"en": "chosen character", "fr": "un personnage choisi", "reference": "coconut-004; user correction"}
+  ],
+  "review_rules": [
+    "Preserve the actor and target: chosen character is not necessarily the character just played.",
+    "All characters includes opposing characters; do not replace it with your characters.",
+    "Preserve who draws a card, pronouns such as this/that, quantities, costs, zones, timing and optional effects.",
+    "Keep source rules symbols as named markers; cost and ink are distinct symbols.",
+    "Use existing supported **keyword** markup for game keywords, with punctuation outside the stars.",
+    "Official card names may be used only when supplied by the selected FR association; otherwise report uncertainty.",
+    "These examples guide wording, not game mechanics. Never substitute an existing card's effect for the photographed Coconut effect."
+  ]
+}
