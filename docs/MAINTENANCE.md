@@ -24,6 +24,12 @@ En local, lancer `python -m coconut check --fetch --report check-report.json`. C
 
 ## Nouvelle carte ou révision de source
 
+Le [contrat des dossiers de proposition](REVIEW-PROPOSAL.md) et la commande
+en lecture seule `python -m coconut review-check chemin/vers/proposal.json`
+permettent de vérifier un dossier complet avant sa revue humaine. La
+préparation de ces dossiers et le branchement du contrôle dans GitHub Actions
+restent des étapes à venir ; la procédure actuelle ci-dessous reste applicable.
+
 1. Lancer `python -m coconut import --fetch --report import-report.json`. Examiner `added`, `changed`, `detail_image_changed`, `official_changes` et `missing`.
 2. Pour une nouvelle carte, identifier la carte standard correspondante dans le catalogue FR en comparant nom, sous-titre, identifiant et illustration. Compléter `official_card_id`, `ref_image_art_fr_hd`, `name_fr`, `subtitle_fr`, `effet_en` et `effet_fr` dans le CSV. Relire `effet_en` directement sur l'image Coconut détaillée. Les symboles s'écrivent `{cost}`, `{lore}`, `{strength}` et `{exert}` dans les deux langues. `{cost}` est l'hexagone creux, distinct de la spirale d'encre. Dans `effet_fr`, `**Boost**` met le mot clé en gras ; le générateur dessine les quatre symboles, même si la police ne les contient pas. Ne pas utiliser le texte des règles de la carte standard comme effet Coconut.
 3. Pour une révision, comparer l'ancien JPEG verrouillé au nouveau et noter la nouvelle transcription EN et la traduction FR approuvées. Modifier manuellement les colonnes EN et les URL concernées dans le CSV. Les lignes disparues ne sont pas supprimées automatiquement.
