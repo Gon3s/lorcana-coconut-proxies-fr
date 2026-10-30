@@ -42,6 +42,14 @@ Un changement de `name_fr` ou `subtitle_fr` éditorial ne nécessite pas `sync-s
 
 ## GitHub Actions et runner local
 
+Le job `deploy` doit vérifier explicitement `!cancelled()` et la réussite de
+`build`. Lors d'une fusion, `check-catalog` est normalement ignoré ; sans
+fonction de statut explicite dans la condition de déploiement, GitHub peut
+ignorer ce dernier malgré un build réussi. Un workflow vert ne prouve donc
+pas une publication : vérifier le job `deploy`, le déploiement enregistré et
+le contenu réellement servi. Les cas fusion, build manuel, contrôle seul,
+PR, échec et annulation sont couverts par `tests/test_pages_workflow.py`.
+
 Chaque pull request utilise `ubuntu-latest`, lance les tests et le build, puis fournit l'artefact `coconut-preview`. Elle ne publie pas le site. Un push sur `main` reconstruit le site puis déploie l'intégralité de `dist/` sur GitHub Pages. Le samedi, un contrôle réussi précède le build et le déploiement des cartes validées. `workflow_dispatch` avec `operation: build` lance un build manuel ; `operation: check` lance le contrôle et peut ouvrir une PR brouillon sur `main` ; `operation: weekly` lance le contrôle suivi du build et du déploiement sur `main`.
 
 Pour utiliser le mini serveur personnel lors d'un déclenchement manuel :
