@@ -56,3 +56,5 @@ L'import compare les catalogues EN/FR et les images détaillées à leurs emprei
 Le processus complet pour une nouvelle carte ou une révision de source figure dans [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md). La [spécification](docs/SPEC.md) explique les choix et critères d'acceptation. Le [suivi de relecture](docs/REVIEW.md) indique les corrections reçues et les points restants avant fusion.
 
 La [remise à plat du pipeline](docs/PIPELINE-RESET.md) décrit l'audit du 30 octobre 2026 et le plan d'évolution : détection hebdomadaire, préparation manuelle avec Codex sur le mini serveur, validation par PR et publication après fusion. Ce plan distingue les fonctions existantes des développements à réaliser.
+
+La première itération ajoute le [contrat de proposition et son contrôle en lecture seule](docs/REVIEW-PROPOSAL.md) : `python -m coconut review-check chemin/vers/proposal.json`. Il vérifie qu'un dossier est complet et cohérent pour la revue humaine ; son intégration aux workflows et la préparation des cartes viennent ensuite.

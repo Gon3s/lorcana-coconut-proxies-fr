@@ -1,4 +1,4 @@
-"""Usage: python -m coconut {import,build}."""
+"""Command-line catalogue, build and proposal review operations."""
 
 import argparse
 import hashlib
@@ -111,9 +111,22 @@ def main() -> None:
     building.add_argument("--out", type=Path, default=Path("dist"))
     syncing = commands.add_parser("sync-sources", help="Download and lock images named by the reviewed CSV")
     syncing.add_argument("--accept-changes", action="store_true", help="Replace changed pinned images after review")
+    reviewing = commands.add_parser("review-check", help="Check a complete proposal before human review (read-only)")
+    reviewing.add_argument("proposal", type=Path, help="Path to proposal.json, relative to --root or absolute")
     args = parser.parse_args()
     root = args.root.resolve()
-    if args.command == "import":
+    if args.command == "review-check":
+        from .review import validate_review
+
+        path = args.proposal if args.proposal.is_absolute() else root / args.proposal
+        try:
+            proposal = json.loads(path.read_text(encoding="utf-8"))
+            rows = read_cards(root / "data" / "coconut-cards.csv")
+            validate_review(proposal, path.parent, rows)
+        except (OSError, ValueError) as error:
+            parser.error(f"Review not ready: {error}")
+        print(f"{proposal['card']['id']}: ready for human review; not human approval.")
+    elif args.command == "import":
         english = _json_source(args.en, "en", args.fetch)
         french = _json_source(args.fr, "fr", args.fetch)
         image_hashes = None
