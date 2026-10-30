@@ -116,6 +116,10 @@
     "coconut-029": {
       "detail": "assets/source/coconut-029-detail.jpg",
       "art_fr_hd": "assets/source/coconut-029-art_fr_hd.jpg"
+    },
+    "coconut-030": {
+      "detail": "assets/source/coconut-030-detail.jpg",
+      "art_fr_hd": "assets/source/coconut-030-art_fr_hd.jpg"
     }
   },
   "files": {
@@ -176,7 +180,9 @@
     "assets/source/coconut-028-art_fr_hd.jpg": "a3c41cb37313b973c175ca1bc957839c97a0e9dba841133821954154cfc2c519",
     "assets/source/coconut-028-detail.jpg": "59dc47e3d62c8a1c0af990237045460548ed775c73eb04292fc29b711e466ba2",
     "assets/source/coconut-029-art_fr_hd.jpg": "30efde9ea00de87a9bf2b729b266065f3aff3edbe328298774b1dec588e5acae",
-    "assets/source/coconut-029-detail.jpg": "6379624bef8853d9e2ff40bf08604df9cbb02bd8b762049cc11de9c422cdc717"
+    "assets/source/coconut-029-detail.jpg": "6379624bef8853d9e2ff40bf08604df9cbb02bd8b762049cc11de9c422cdc717",
+    "assets/source/coconut-030-art_fr_hd.jpg": "78bda1bc0a8beb3551a5318386a79aefdef5af08826261a775941a1c01a0f2f8",
+    "assets/source/coconut-030-detail.jpg": "baa2d94e477a2e997f5e7c94064d53c7dffb28270adbc68b1ce39d05bab7893a"
   },
   "refs": {
     "coconut-002": {
@@ -352,11 +358,17 @@
       "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/029_8730902e2f5a8c87eb2b37cd30d8c5f2b3760c4d.jpg",
       "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set10/156_9087ca5ceb3157f934c88d431778c0e43671156a.jpg",
       "official_card_id": "2345"
+    },
+    "coconut-030": {
+      "ref_image_detail": "https://api.lorcana.ravensburger.com/images/en/coconut-cards/030_9d4036353713492ab6ed40ee57735cbab2b443c2.jpg",
+      "ref_image_settings": "https://api.lorcana.ravensburger.com/images/fr/coconut-cards/030_ebe5299e117101bd9f59e9b069fcae11d32cc095.jpg",
+      "ref_image_art_fr_hd": "https://api.lorcana.ravensburger.com/images/fr/set6/124_5436564d0a1f117876993c28a5cdd53756aa805d.jpg",
+      "official_card_id": "1323"
     }
   },
   "catalog_sha256": {
     "en": "80e16c0bdbc446f4b0a354c53e276beefe05c231c978f71ee363b724dbf52fd5",
     "fr": "645b20691ad4b4a8ff9bb10c7fce886b6579d343bbf665f1315c7f4be11bbb96"
   },
-  "verified_at": "2026-10-19"
+  "verified_at": "2026-10-30"
 }
