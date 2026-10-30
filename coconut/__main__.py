@@ -115,9 +115,24 @@ def main() -> None:
     preparing.add_argument("--fr", type=Path, help="Local French catalog JSON, relative to --root or absolute")
     preparing.add_argument("--out", type=Path, default=Path("outputs/reviews"), help="Parent folder under repository outputs/")
     preparing.add_argument("--official-card-id", default="", help="Explicit candidate official match; requires human review")
+    assisting = commands.add_parser("codex-suggest", help="Manually propose EN/FR effects without editing the draft")
+    assisting.add_argument("proposal", type=Path, help="Captured proposal.json under outputs/")
+    assisting.add_argument("--codex", default="codex", help="Codex executable or full path")
+    assisting.add_argument("--model", help="Optional explicit model; otherwise the CLI default is used")
+    assisting.add_argument("--timeout", type=int, default=180, help="Inference timeout in seconds, 1–900")
     args = parser.parse_args()
     root = args.root.resolve()
-    if args.command == "prepare-review":
+    if args.command == "codex-suggest":
+        from .assist import suggest_effects
+
+        try:
+            result_path = suggest_effects(root, args.proposal, codex=args.codex,
+                                          model=args.model, timeout=args.timeout)
+        except (OSError, ValueError) as error:
+            parser.error(f"Codex suggestion not ready: {error}")
+        print(f"Unreviewed suggestion saved at: {result_path}")
+        print("The draft, production CSV and source lock are unchanged. Human review is required.")
+    elif args.command == "prepare-review":
         from .download import IMAGE_LIMIT, download_bytes, load_catalog
         from .prepare import prepare_review
 

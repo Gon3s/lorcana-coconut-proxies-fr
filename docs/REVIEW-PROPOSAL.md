@@ -3,8 +3,8 @@
 Le dossier rassemble ce qu'une personne doit relire avant d'intégrer une
 nouvelle carte ou une révision. Il reste séparé du CSV publié et du verrou
 des sources de production. La [capture relançable des sources](PREPARE-REVIEW.md)
-est disponible avec `prepare-review`. Le traitement des textes avec Codex et
-l'intégration à la CI seront ajoutés dans les prochaines itérations du plan.
+est disponible avec `prepare-review`. La [commande Codex manuelle](MANUAL-CODEX.md)
+produit des suggestions séparées. L'intégration à la CI viendra dans une PR dédiée.
 
 ## États et commande
 

@@ -2,7 +2,8 @@
 
 Cette commande prépare un **brouillon local**. Elle ne transcrit pas l'effet,
 ne le traduit pas et n'accepte aucune nouvelle source dans le verrou publié.
-La commande Codex manuelle sera ajoutée dans l'itération suivante.
+La [commande Codex manuelle](MANUAL-CODEX.md) peut ensuite proposer les effets
+dans un fichier séparé, sans écraser ce brouillon.
 
 ## Créer un dossier
 
